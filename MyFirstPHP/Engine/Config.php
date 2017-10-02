@@ -12,10 +12,12 @@ final class Config
 {
     // Database info (if you want to test the script, please edit the below constants with yours)
     const
-    DB_HOST = 'localhost',
-    DB_NAME = 'smd1',
-    DB_USR = 'smd',
-    DB_PWD = 'smd',
+    DB_HOST = 'smddev.database.windows.net',
+    DB_NAME = 'smddevenv',
+    DB_USR = 'adminsmd@smddev',
+    DB_PWD = 'MySQLazureadmin2017',
+   
+    DB_SSLMODE='prefer',        
 
     // Title of the site
     SITE_NAME = 'My Simple Blog!';
