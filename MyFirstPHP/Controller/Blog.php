@@ -75,7 +75,7 @@ class Blog
 
     public function add()
     {
-        if (!$this->isLogged()) exit;
+       // if (!$this->isLogged()) exit;
 
         if (!empty($_POST['add_submit']))
         {

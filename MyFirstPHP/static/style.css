@@ -1,6 +1,4 @@
-﻿body{
-    margin-top:55px;
-}
+
 header,footer {
     height:100px;
     background:-webkit-linear-gradient(left,#101010 0%,#101010 130%);
@@ -66,4 +64,188 @@ min-height:730px;
 
 .tooltip-inner {
     background-color:forestgreen;
+}
+
+.loginbg{
+	background: url(../images/bg2.JPG) no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	background-color: #fff;
+}
+
+@media (min-width: 320px) and (max-width: 350px) {
+     .login-form{
+     	width: 280px !important;
+     }
+}
+
+@media (min-width: 350px) and (max-width: 500px) {
+     .login-form{
+     	width: 300px !important;
+     }
+     
+}
+
+@media (min-width: 320px) and (max-width: 1023px) {
+     body{
+		background: url(../images/small-bg2.jpg) no-repeat center center fixed; 
+	  	-webkit-background-size: cover;
+	  	-moz-background-size: cover;
+	  	-o-background-size: cover;
+	  	background-size: cover;
+		background-color: #fff;
+	}
+}
+
+@media (min-width: 1024px) and (max-width: 1360px) {
+     body{
+		background: url(../images/medium-bg2.jpg) no-repeat center center fixed; 
+	  	-webkit-background-size: cover;
+	  	-moz-background-size: cover;
+	  	-o-background-size: cover;
+	  	background-size: cover;
+		background-color: #fff;
+	}
+}
+
+@media (min-width: 1361px) and (max-width: 1960px) {
+     body{
+		background: url(../images/bg2000.jpg) no-repeat center center fixed; 
+	  	-webkit-background-size: cover;
+	  	-moz-background-size: cover;
+	  	-o-background-size: cover;
+	  	background-size: cover;
+		background-color: #fff;
+	}
+}
+#background-carousel{
+	position:fixed;
+	width:100%;
+	height:100%;
+	z-index:-1;
+        
+}
+.carousel,
+.carousel-inner {
+	width:100%;
+	height:100%;
+	z-index:0;
+	overflow:hidden;
+}
+.item {
+	width:100%;
+	height:100%;
+	background-position:center center;
+	background-size:cover;
+	z-index:0;
+}
+ 
+#content-wrapper {
+	position:absolute;
+	z-index:1 !important;
+	min-width:100%;
+	min-height:100%;
+        background: rgba(74, 62, 62, 0.5) none repeat scroll 0% 0%;
+}
+.well {
+    opacity:0.85
+}
+.login-form {
+   background: #EDF0F3;
+   width:440px;
+   margin: 15% auto;
+   opacity: 0.92;
+   
+}
+.form-signin{
+    padding: 20px;
+}
+.title{font-family: Pacifico;text-decoration: underline;}
+
+
+.form-footer {
+	padding: 15px 40px;	
+}
+.bt-login{
+	background-color: #0084bf;
+    color: #ffffff;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    transition: background-color 300ms linear 0s;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.bt-login:active,.bt-login:hover, .bt-login.focus {
+ background-color: #0173a7;  
+ color: #ffffff;
+}
+
+.form-signin .form-control{
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus{
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 30px;
+  margin-bottom: 30px;
+border-radius: 0;
+margin-top: 10px;
+}
+i{margin-right: 4%;color:#555555}
+a{text-decoration: none;color:#555555;}
+.logotext
+{
+    color: #283e4a;
+font-size: 30px;
+font-weight: 500;
+}
+.tagline{
+text-align: center;
+color: rgb(40, 62, 74);
+font-size: 20px;
+margin-top: 10px;
+}
+.NetworkLogo{
+    text-align: center;
+background: rgb(246, 248, 250) none repeat scroll 0% 0%;
+padding: 20px;
+border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+
+#bg-one img, #bg-two img, #bg-third img{ 
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#gSignIn>div
+{
+    margin-top: 15px;
+border-radius: 5px;
+}
+.error{
+    color: red;
 }
