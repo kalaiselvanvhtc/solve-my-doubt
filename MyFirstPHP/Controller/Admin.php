@@ -27,7 +27,7 @@ class Admin extends Blog
                 header('Location: ' . ROOT_URL . '?p=blog&a=all');
                 exit;
             }
-            else
+            else 
             {
                 $this->oUtil->sErrMsg = 'Incorrect Login!';
             }

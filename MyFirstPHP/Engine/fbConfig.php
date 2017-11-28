@@ -7,7 +7,7 @@
  */
 if(!session_id()){
     session_start();
-}
+} 
 
 // Include the autoloader provided in the SDK
 require_once __DIR__ . '/facebook-php-sdk/src/Facebook/autoload.php';

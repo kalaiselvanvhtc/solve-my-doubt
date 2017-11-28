@@ -13,6 +13,7 @@
 ?>
 <?php require 'inc/header.php' ?>
 
+
 <?php if (empty($this->oPosts)): ?>
     <p class="bold">There is no Blog Post.</p>
     <p><button type="button" onclick="window.location='<?=ROOT_URL?>?p=blog&amp;a=add'" class="bold">Add Your First Blog Post!</button></p>

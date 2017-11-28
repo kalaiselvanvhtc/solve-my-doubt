@@ -17,6 +17,7 @@ if(isset($accessToken)){
         $longLivedAccessToken = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
         $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
         
+        
         // Set default access token to be used in script
         $fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
     }

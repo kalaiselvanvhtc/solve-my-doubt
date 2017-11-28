@@ -12,6 +12,7 @@
 <?php if (empty($this->oPost)): ?>
     <p class="error">Post Data Not Found!</p>
 <?php else: ?>
+    
 
     <form action="" method="post">
         <p><label for="title">Title:</label><br />

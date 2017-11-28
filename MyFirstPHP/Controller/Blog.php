@@ -76,7 +76,7 @@ class Blog
     public function add()
     {
        // if (!$this->isLogged()) exit;
-
+ 
         if (!empty($_POST['add_submit']))
         {
             if (isset($_POST['title'], $_POST['body']) && mb_strlen($_POST['title']) <= 50) // Allow a maximum of 50 characters

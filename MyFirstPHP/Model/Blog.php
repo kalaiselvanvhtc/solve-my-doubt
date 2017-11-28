@@ -10,6 +10,7 @@ namespace TestProject\Model;
 
 class Blog
 {
+    
     protected $oDb;
 
     public function __construct()

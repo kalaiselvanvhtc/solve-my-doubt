@@ -7,7 +7,7 @@
  */
 
 namespace TestProject\Engine\Pattern;
-
+ 
 trait Singleton
 {
     use Base;

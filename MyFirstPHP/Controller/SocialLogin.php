@@ -50,7 +50,7 @@ class SocialLogin {
                     $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
                 }
                 else
-                {
+                { 
                     $this->oUtil->sErrMsg = 'Whoops! An error has occurred! Please try again later.';
                     $this->oUtil->getView('SocialLogin');
                 }

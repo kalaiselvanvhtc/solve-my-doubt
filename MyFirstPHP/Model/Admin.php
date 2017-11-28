@@ -10,8 +10,9 @@ namespace TestProject\Model;
 
 class Admin extends Blog
 {
-    public function login($sEmail)
+    public function login($sEmail) 
     {
+        
         $oStmt = $this->oDb->prepare('SELECT email, password FROM users WHERE email = :email OR phone_Number = :email LIMIT 1');
         $oStmt->bindValue(':email', $sEmail, \PDO::PARAM_STR);
         $oStmt->execute();

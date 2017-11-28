@@ -7,7 +7,7 @@
  */
 
 namespace TestProject\Engine;
-
+ 
 final class Config
 {
     // Database info (if you want to test the script, please edit the below constants with yours)

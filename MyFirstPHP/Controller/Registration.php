@@ -87,7 +87,7 @@ class Registration {
             {
                  $this->oUtil->sErrMsg = 'Please enter phone number';
                   $this->oUtil->getView('RegistrationView');
-            }
+            } 
         }
     }
     

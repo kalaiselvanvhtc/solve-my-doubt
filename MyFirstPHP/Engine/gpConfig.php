@@ -6,7 +6,7 @@ include_once 'src/Google_Client.php';
 include_once 'src/contrib/Google_Oauth2Service.php';
 
 /*
- * Configuration and setup Google API
+ * Configuration and setup Google API 
  */
 $clientId = '676124198523-iiq5kq7iicsvmk1etpu2ltqacqppv8v0.apps.googleusercontent.com';
 $clientSecret = 'SXG8mEFllfORY1HmLWptRbqL';

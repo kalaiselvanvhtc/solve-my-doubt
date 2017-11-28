@@ -14,6 +14,7 @@ namespace TestProject\Model;
  * @author kalaiselvan
  */
 class User {
+    
     //put your code here
     protected $oDb;
     protected $userTbl ='users';

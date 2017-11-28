@@ -20,6 +20,7 @@ if ($gClient->getAccessToken()) {
     //Initialize User class
     $user = new User();
     
+    
     //Insert or update user data to the database
     $gpUserData = array(
         'oauth_provider'=> 'google',

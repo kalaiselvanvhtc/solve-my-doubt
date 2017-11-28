@@ -7,7 +7,7 @@
  */
 
 namespace TestProject\Engine;
-
+ 
 use TestProject\Engine\Pattern\Singleton;
 
 // First, include necessary Pattern classes

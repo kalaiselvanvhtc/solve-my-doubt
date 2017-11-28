@@ -9,7 +9,7 @@
 namespace TestProject\Engine;
 
 class Util
-{
+{ 
     public function getView($sViewName)
     {
         $this->_get($sViewName, 'View');

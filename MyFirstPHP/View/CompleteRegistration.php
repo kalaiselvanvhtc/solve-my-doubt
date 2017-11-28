@@ -39,6 +39,7 @@
 	<div class="login-form">
             <div class="NetworkLogo"><a class="logo" href="#"><span class="logotext">Step1: Complete your registration</span></a>
             </div>
+            
                
 		<form id="login-form" method="post" class="form-signin" action="?p=Registration&amp;a=update">
                     <?php require 'inc/msg.php' ?>

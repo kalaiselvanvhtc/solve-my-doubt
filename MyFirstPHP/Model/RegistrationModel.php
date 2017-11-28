@@ -14,5 +14,6 @@ namespace TestProject\Model;
  * @author kalaiselvan
  */
 class RegistrationModel {
+    
     //put your code here
 }

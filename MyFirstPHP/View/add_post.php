@@ -19,6 +19,7 @@
         <textarea name="body" id="body" rows="5" cols="35" required="required"></textarea>
     </p>
 
+    
     <p><input type="submit" name="add_submit" value="Add" /></p>
 </form>
 

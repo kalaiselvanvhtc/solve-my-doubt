@@ -11,7 +11,6 @@
 <?php if (empty($this->oPost)): ?>
     <p class="error">The post can't be be found!</p>
 <?php else: ?>
-
     <article>
         <time datetime="<?=$this->oPost->createdDate?>" pubdate="pubdate"></time>
 
