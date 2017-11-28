@@ -170,7 +170,7 @@ function signOut() {
        if (response.status === 'connected') {
     FB.api('/me', { locale: 'tr_TR', fields: 'name, email,birthday, hometown,education,gender,website,work' },function(response) {
                    document.getElementById('social_user_info').value =response.name+','+response.email;
-              // document.getElementById("social_authenticate").click();
+                   document.getElementById("social_authenticate").click();
                });
            }
   });
