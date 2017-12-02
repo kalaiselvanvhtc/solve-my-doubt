@@ -19,7 +19,8 @@ class SocialLogin {
       
        public function __construct()
     {
-      
+      if (empty($_SESSION))
+            @session_start();
         $this->oUtil = new \TestProject\Engine\Util;
 
         /** Get the Model class in all the controller class **/
@@ -31,6 +32,61 @@ class SocialLogin {
     {
         $this->oUtil->getView('SocialLogin');
      
+    }
+    
+   
+    
+     public  function mobilelogin()
+    {
+        if (isset($_GET['email'], $_GET['name']))
+        {    
+                 $hashPassword=  password_hash("1234" , PASSWORD_BCRYPT, array('cost' => 14));
+                $aData = array('first_name' => $_GET['name'],"last_name"=>$_GET['name'],"full_name"=>$_GET['name'],"email"=>$_GET['email'],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>$_GET['email']);//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
+                
+                if ($this->oModel->checkUser($aData))
+                {
+                 $this->oUtil->oPosts = array(200,"Registered successfull",$_GET['email']);
+
+                 $this->oUtil->getView('LoginApi');  
+                }
+                else if ($this->oModel->addUser($aData))
+                { 
+                    $this->oUtil->oPosts = array(200,"Registered successfull",$_GET['email']);
+
+                 $this->oUtil->getView('LoginApi');  
+                }
+                else
+                { 
+                     $this->oUtil->oPosts =  array(500,'Whoops! An error has occurred! Please try again later.',$_GET['email']);
+
+                     $this->oUtil->getView('LoginApi');  
+                }
+        }
+        else
+        {
+              if (isset($_GET['email'], $_GET['password']))
+        {
+            $this->oUtil->getModel('Admin');
+            $this->oModel = new \TestProject\Model\Admin;
+
+            $sHashPassword =  $this->oModel->login($_GET['email']);
+            if (password_verify($_GET['password'], $sHashPassword))
+            {
+                $this->oUtil->oPosts = array(200,"Login successfull",$_GET['email']);
+                $this->oUtil->getView('LoginApi');  
+            }
+            else
+            {
+              $this->oUtil->oPosts = array(400,"Invalid Request",'');
+              $this->oUtil->getView('LoginApi');  
+            }
+        }
+        else {
+                $this->oUtil->oPosts = array(400,"Invalid Request",'');
+                $this->oUtil->getView('LoginApi');  
+               }
+        }
+        
     }
     
     public function add()
@@ -49,13 +105,13 @@ class SocialLogin {
                     $this->oUtil->getView('add_post');
                     $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
                 }
-                else
+                else  if ($this->oModel->addUser($aData))
                 { 
-                    $this->oUtil->sErrMsg = 'Whoops! An error has occurred! Please try again later.';
-                    $this->oUtil->getView('SocialLogin');
+                     $_SESSION['is_logged'] = 1;
+                    $this->oUtil->getView('add_post');
+                    $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
                 }
             }
-            
         }
         else
         {
@@ -72,8 +128,9 @@ class SocialLogin {
             }
             else
             {
+                $this->oUtil->sErrMsg = 'Incorrect login!';
                 $this->oUtil->getView('SocialLogin');
-                $this->oUtil->sErrMsg = 'Incorrect Login!';
+                
             }
         }
         }

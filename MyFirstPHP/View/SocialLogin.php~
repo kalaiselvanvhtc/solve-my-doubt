@@ -58,7 +58,7 @@
                
 		<form id="login-form" method="post" class="form-signin" action="?p=SocialLogin&amp;a=add">
                      <?php require 'inc/msg.php' ?>
-			<input name="email" id="email" type="number" class="form-control"placeholder="Phone number" autofocus> 
+			<input name="email" id="email" type="email" class="form-control"placeholder="Email or phone number" autofocus> 
 			<input name="password" id="password" type="password" class="form-control disable" placeholder="Password">
 			<button class="btn btn-block bt-login" type="submit">Sign In</button>
 		

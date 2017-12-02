@@ -42,7 +42,7 @@
                
 		<form id="login-form" method="post" class="form-signin" action="?p=Registration&amp;a=add">
                     <?php require 'inc/msg.php' ?>
-			<input name="phoneNumber" min="10" max="10" id="phoneNumber" style="margin-bottom: 30px;" type="text" class="form-control"placeholder="phone number" autofocus /> 
+			<input name="phoneNumber" min="10" max="10" id="phoneNumber" style="margin-bottom: 30px;" type="text" class="form-control"placeholder="Phone number" autofocus /> 
 			
                         <input class="btn btn-block bt-login" type="submit" name="generateOTP" id="generateOTP" value="Generate OTP"  />
            

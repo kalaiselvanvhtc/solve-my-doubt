@@ -46,7 +46,8 @@
 			<input name="verificationCode"  style="margin-bottom: 30px;" value="" required="required" id="verificationCode" type="number" class="form-control"placeholder="Verification Code" autofocus> 
                         <input name="name" id="name" style="margin-bottom: 30px;" required="required" type="text" class="form-control"placeholder="Name" /> 
                         <input name="email" id="email" style="margin-bottom: 30px;" required="required" type="email" class="form-control"placeholder="Email" /> 
-                        <input name="password" id="password" required="required" type="password" class="form-control"placeholder="Password" /> 
+                        <input name="password" id="password" required="required" type="password" class="form-control" placeholder="Password" /> 
+                         <input name="confirm_password" id="confirm_password" required="required" type="password" class="form-control" placeholder="Confirm Password" /> 
 			<input name="OTPhidden" type="hidden" value="<?=htmlspecialchars($_SESSION["OTP"])?>" />
                         <input name="numberhidden" type="hidden" value="<?=htmlspecialchars($_SESSION["PhoneNumber"])?>" />
 			<button class="btn btn-block bt-login" type="submit">Submit</button>
@@ -68,6 +69,19 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <script>
+            var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
           </script>
     
 </body>
