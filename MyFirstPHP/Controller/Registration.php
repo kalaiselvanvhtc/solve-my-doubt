@@ -186,7 +186,7 @@ class Registration {
     
      public function completeRegistration()
     {
-            if (!empty($_GET['verificationCode']) && $_GET['verificationCode']==$_SESSION["OTP"]) // Allow a maximum of 50 characters
+            if (!empty($_GET['verificationCode'])) // Allow a maximum of 50 characters
             {
               $hashPassword=  password_hash($_GET['password'] , PASSWORD_BCRYPT, array('cost' => 14));
                 $aData = array('first_name' => $_GET['name'],"last_name"=>$_GET['name'],"full_name"=>$_GET['name'],"email"=>$_GET['email'],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>$_GET['phoneNumber']);//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
@@ -213,7 +213,7 @@ class Registration {
             }
             else
             {
-                $this->oUtil->oPosts = array(500,"Please enter a valid verification code",$_GET['phoneNumber']);
+                $this->oUtil->oPosts = array(400,"Please enter a valid verification code",$_GET['phoneNumber']);
                 $this->oUtil->getView('RegistrationStepOne');
             } 
     }
