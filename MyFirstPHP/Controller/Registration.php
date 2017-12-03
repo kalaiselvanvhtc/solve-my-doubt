@@ -133,7 +133,7 @@ class Registration {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$response = curl_exec($ch);
 	curl_close($ch);
-	 $this->oUtil->oPosts = array(200,"Registered step one successfull",$_GET['phoneNumber']);
+         $this->oUtil->oPosts = array(200,"Registered step one successfull",$OTP);
         $this->oUtil->getView('RegistrationStepOne');
                 }
                 else
