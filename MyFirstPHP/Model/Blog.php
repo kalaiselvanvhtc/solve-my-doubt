@@ -41,7 +41,7 @@ class Blog
     
     public function mobilegetAllFields()
     {
-        $oStmt = $this->oDb->query('SELECT DegreeName FROM Field');
+        $oStmt = $this->oDb->query('SELECT FieldName as Name FROM Field');
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
     
