@@ -177,8 +177,8 @@ class Blog
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
             default:
-                $this->oUtil->objAuto = $this->oModel->mobilegetAllFields();
-                $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
+                
+                $this->oUtil->oPosts = array(200,"User Information",$this->oModel->mobilegetAllFields());
                 $this->oUtil->getView('mobileAutoCompleteApi');
                 break;
         } 
