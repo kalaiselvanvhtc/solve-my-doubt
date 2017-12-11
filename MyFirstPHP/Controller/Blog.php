@@ -162,22 +162,22 @@ class Blog
         switch ($_GET['type'])
         {
             case 'degree':
-                 $this->oUtil->objAuto = $this->oModel->getDegree($_GET['fieldId']);
+                 $this->oUtil->objAuto = $this->oModel->mobilegetDegree($_GET['fieldName']);
                 $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
            case 'specialization':
-                   $this->oUtil->objAuto = $this->oModel->specialization($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+                   $this->oUtil->objAuto = $this->oModel->mobilespecialization($_GET['fieldName'],$_GET['degreeName'],$_GET['name_startsWith']);
                  $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
            case 'topics':
-                   $this->oUtil->objAuto = $this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+                   $this->oUtil->objAuto = $this->oModel->mobiletopic($_GET['fieldName'],$_GET['degreeName'],$_GET['name_startsWith']);
                $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
             default:
-                $this->oUtil->objAuto = $this->oModel->getAllFields();
+                $this->oUtil->objAuto = $this->oModel->mobilegetAllFields();
                 $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
                 $this->oUtil->getView('mobileAutoCompleteApi');
                 break;

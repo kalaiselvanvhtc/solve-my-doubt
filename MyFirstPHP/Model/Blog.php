@@ -39,6 +39,12 @@ class Blog
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
     
+    public function mobilegetAllFields()
+    {
+        $oStmt = $this->oDb->query('SELECT DegreeName FROM Field');
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
      public function getDegree($fieldId)
     {
         $oStmt = $this->oDb->prepare('SELECT DegreeId as Id, DegreeName as Name FROM Degree WHERE FieldId = :fieldId');
@@ -61,13 +67,39 @@ class Blog
      public function topic($fieldId,$degreeId,$topic)
     {
          $topic = "%".$topic."%";
-         /* Execute a prepared statement using an array of values for an IN clause */
-       // $params = array(1, 21, 63, 171);
-         /* Create a string for the parameter placeholders filled to the number of params */
-       // $place_holders = implode(',', array_fill(0, count($params), '?'));
-        $oStmt = $this->oDb->prepare('SELECT TopicId as Id, TopicName as Name FROM Topics WHERE FieldId = :fieldId AND DegreeId = :degreeId AND TopicName LIKE :topicName');
+         $oStmt = $this->oDb->prepare('SELECT TopicId as Id, TopicName as Name FROM Topics WHERE FieldId = :fieldId AND DegreeId = :degreeId AND TopicName LIKE :topicName');
          $oStmt->bindParam(':fieldId', $fieldId, \PDO::PARAM_INT);
          $oStmt->bindParam(':degreeId', $degreeId, \PDO::PARAM_INT);
+         $oStmt->bindParam(':topicName', $topic, \PDO::PARAM_STR);
+         $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+     public function mobilegetDegree($fieldName)
+    {
+        $oStmt = $this->oDb->prepare('SELECT DegreeName as Name FROM Degree WHERE FieldName = :fieldName');
+         $oStmt->bindParam(':fieldName', $fieldName, \PDO::PARAM_STR);
+         $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+     public function mobilespecialization($fieldName,$degreeName,$spec)
+    {
+         $spec = "%".$spec."%";
+        $oStmt = $this->oDb->prepare('SELECT SpecializationName as Name FROM Specialization WHERE FieldName = :fieldName AND DegreeName = :degreeName AND SpecializationName LIKE :specializationName');
+         $oStmt->bindParam(':fieldName', $fieldName, \PDO::PARAM_STR);
+         $oStmt->bindParam(':degreeName', $degreeName, \PDO::PARAM_STR);
+         $oStmt->bindParam(':specializationName', $spec, \PDO::PARAM_STR);
+         $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+     public function mobiletopic($fieldName,$degreeName,$topic)
+    {
+         $topic = "%".$topic."%";
+         $oStmt = $this->oDb->prepare('SELECT TopicName as Name FROM Topics WHERE FieldName = :fieldName AND DegreeName = :degreeName AND TopicName LIKE :topicName');
+         $oStmt->bindParam(':fieldName', $fieldName, \PDO::PARAM_STR);
+         $oStmt->bindParam(':degreeName', $degreeName, \PDO::PARAM_STR);
          $oStmt->bindParam(':topicName', $topic, \PDO::PARAM_STR);
          $oStmt->execute();
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);

@@ -7,7 +7,7 @@
  <span class="icon-bar"></span> 
  <span class="icon-bar"></span> 
  </button>
-      <a class="navbar-brand" href="#">Solve My Doubt
+      <a class="navbar-brand" style="font-weight: bold" href="#">Solve My Doubt
       <p class="alwayslearning hidden">Spread the Knowledge!</p>
       </a>
       
