@@ -26,10 +26,15 @@ class SocialLogin {
         /** Get the Model class in all the controller class **/
         $this->oUtil->getModel('User');
         $this->oModel = new \TestProject\Model\User;
+          $this->oUtil->oFields = $this->oModel->getAllFields();
+          
+          
     }
     
      public function login()
     {
+         if($_SESSION['is_logged'])
+              header('Location: ' . ROOT_URL . '?p=UserProfile&a=getuserinfo');
         $this->oUtil->getView('SocialLogin');
      
     }
@@ -91,6 +96,11 @@ class SocialLogin {
     
     public function add()
     {
+        try
+        {
+            if($_SESSION['is_logged'])
+              header('Location: ' . ROOT_URL . '?p=blog&a=add');
+            
         if (!empty($_POST['social_authenticate']))
         {    
             if (!empty($_POST['social_user_info'])) // Allow a maximum of 50 characters
@@ -98,16 +108,35 @@ class SocialLogin {
                  $hashPassword=  password_hash("1234" , PASSWORD_BCRYPT, array('cost' => 14));
                 $myArray = explode(',', $_POST['social_user_info']);
                 $aData = array('first_name' => $myArray[0],"last_name"=>$myArray[0],"full_name"=>$myArray[0],"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>"124");//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
-                
-                if ($this->oModel->checkUser($aData))
+                $userData = $this->oModel->checkUser($aData);
+                         
+                if ($userData)
                 {
                     $_SESSION['is_logged'] = 1;
+                  foreach ($userData as $value) {
+                        $_SESSION['email'] = $value->email;
+                         if((boolean)$value->isRegistrationComplete)
+                            $_SESSION['getUserRegistrationComplete']= 1;
+                           else 
+                            $_SESSION['getUserRegistrationComplete']= 0;
+                        $_SESSION['userId']= $value->userId;
+                         }
                     $this->oUtil->getView('add_post');
                     $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
                 }
                 else  if ($this->oModel->addUser($aData))
                 { 
+                    $userData = $this->oModel->checkUser($aData);
                      $_SESSION['is_logged'] = 1;
+                     foreach ($userData as $value) {
+                        $_SESSION['email'] = $value->email;
+                           if((boolean)$value->isRegistrationComplete)
+                            $_SESSION['getUserRegistrationComplete']= 1;
+                           else 
+                            $_SESSION['getUserRegistrationComplete']= 0;
+            
+                        $_SESSION['userId']= $value->userId;
+                         }
                     $this->oUtil->getView('add_post');
                     $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
                 }
@@ -121,9 +150,16 @@ class SocialLogin {
             $this->oModel = new \TestProject\Model\Admin;
 
             $sHashPassword =  $this->oModel->login($_POST['email']);
-            if (password_verify($_POST['password'], $sHashPassword))
+            if (password_verify($_POST['password'], $sHashPassword->password))
             {
-                $_SESSION['is_logged'] = 1; // Admin is logged now
+                  $_SESSION['userId'] = $sHashPassword->userId;
+                  $_SESSION['email'] = $sHashPassword->email;
+                  if((boolean)$sHashPassword->isRegistrationComplete)
+                $_SESSION['getUserRegistrationComplete']= 1;
+                else 
+                $_SESSION['getUserRegistrationComplete']= 0;
+            
+               $_SESSION['is_logged'] = 1; // Admin is logged now
                 $this->oUtil->getView('add_post');
             }
             else
@@ -134,7 +170,11 @@ class SocialLogin {
             }
         }
         }
-        
+        }
+catch(Exception $e) {
+    $this->oUtil->sErrMsg = $e->getMessage();
+                $this->oUtil->getView('SocialLogin');
+}
         
          
         

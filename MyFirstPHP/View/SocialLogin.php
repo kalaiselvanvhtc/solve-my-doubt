@@ -31,7 +31,7 @@
 	    <![endif]-->
 	</head>
 <body>
-    
+    <?php require 'inc/header.php' ?>
 <div id="background-carousel">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
@@ -52,18 +52,18 @@
  <div id="content-wrapper">
 	<div class="container">
 	<div class="login-form">
-            <div class="NetworkLogo"><a class="logo" href="#"><span class="logotext">Solve My Doubt</span></a>
-             <h2 class="tagline">Spread the knowledge!</h2>
+            <div class="NetworkLogo"><a class="logo" href="#"><span class="logotext">Login or Join</span></a>
+             <h2 class="tagline hidden">Spread the knowledge!</h2>
             </div>
                
 		<form id="login-form" method="post" class="form-signin" action="?p=SocialLogin&amp;a=add">
                      <?php require 'inc/msg.php' ?>
 			<input name="email" id="email" type="number" class="form-control"placeholder="Phone number" autofocus> 
 			<input name="password" id="password" type="password" class="form-control disable" placeholder="Password">
-			<button class="btn btn-block bt-login" type="submit">Sign In</button>
+			<button class="btn btn-block bt-login btn-affermative" type="submit">Sign In</button>
 		
-           <div class="fb-login-button" data-max-rows="1" data-width="400px" onlogin="checkLoginState();" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-scope="email,user_hometown,user_birthday,user_education_history,user_website,user_work_history" data-use-continue-as="true"></div>
-	    
+                          <div class="fb-login-button" data-max-rows="1" data-width="440px" onlogin="checkLoginState();" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-scope="email,user_hometown,user_birthday,user_education_history,user_website,user_work_history" data-use-continue-as="true"></div>
+                        
             <input type="submit" name="social_authenticate" id="social_authenticate" value="Login" style="display: none" />
             <input type="hidden" name="social_user_info" id="social_user_info" />
             <!-- HTML for render Google Sign-In button -->
@@ -87,6 +87,7 @@
 		</div>
 	</div>
 </div>
+     <?php require 'inc/footer.php' ?>
      </div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -170,7 +171,7 @@ function signOut() {
        if (response.status === 'connected') {
     FB.api('/me', { locale: 'tr_TR', fields: 'name, email,birthday, hometown,education,gender,website,work' },function(response) {
                    document.getElementById('social_user_info').value =response.name+','+response.email;
-              // document.getElementById("social_authenticate").click();
+                   document.getElementById("social_authenticate").click();
                });
            }
   });
@@ -184,7 +185,9 @@ function signOut() {
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+   
 </script>
     
 </body>
+
 </html>

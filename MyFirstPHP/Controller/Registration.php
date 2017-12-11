@@ -28,10 +28,13 @@ class Registration {
         /** Get the Model class in all the controller class **/
         $this->oUtil->getModel('User');
         $this->oModel = new \TestProject\Model\User;
+          $this->oUtil->oFields = $this->oModel->getAllFields();
     }
     
      public function register()
     {
+         if($_SESSION['is_logged'])
+              header('Location: ' . ROOT_URL . '?p=blog&a=add');
         $this->oUtil->getView('RegistrationView');
      
     }
@@ -41,7 +44,7 @@ class Registration {
         if (!empty($_POST['generateOTP']))
         { 
            
-            if (!empty($_POST['phoneNumber']) && strlen($_POST['phoneNumber'])==10) // Allow a maximum of 50 characters
+                if (!empty($_POST['phoneNumber']) && strlen($_POST['phoneNumber'])==10) // Allow a maximum of 50 characters
             {
                 
                 $aData = array('first_name' => "","last_name"=>"","full_name"=>"","email"=>"","createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>"","phone_Number"=>$_POST['phoneNumber']);
@@ -150,6 +153,106 @@ class Registration {
             } 
     }
     
+    public function updateMissingField()
+    {
+        
+        if(isset($_POST['fieldHidden'],$_POST['degreeHidden'],$_POST['specializationHidden'],$_POST['topicGoodHidden'],$_POST['topicHelpHidden'],$_POST['year'],$_POST['sem'])){
+          $profilePropertyDef = $this->oModel->getProfilePropertyDef();
+          foreach($profilePropertyDef as $profile)
+          {
+              switch ($profile->PropertyName)
+              {
+                  case "Field":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['fieldHidden'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Degree":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['degreeHidden'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Specialization":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['specializationHidden'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "TopicGoodAt":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['topicGoodHidden'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "TopicNeedHelp":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['topicHelpHidden'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Year":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['year'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Sem":
+                      $aData = array('UserID' => (int)$_SESSION['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_POST['sem'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+              }
+          }
+             $this->oUtil->getView('add_post');
+                
+         
+        }
+        else
+            {
+                 $this->oUtil->sErrMsg = 'Please enter mandatory fields';
+            }
+    }
+    
+    public function mobileupdateMissingField()
+    {
+        
+        if(isset($_GET['field'],$_GET['degree'],$_GET['specialization'],$_GET['topicGood'],$_GET['topicHelp'],$_GET['year'],$_GET['sem'])){
+          $profilePropertyDef = $this->oModel->getProfilePropertyDef();
+          foreach($profilePropertyDef as $profile)
+          {
+              switch ($profile->PropertyName)
+              {
+                  case "Field":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['field'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Degree":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['degree'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Specialization":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['specialization'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "TopicGoodAt":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['topicGood'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "TopicNeedHelp":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['topicHelp'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Year":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['year'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+                  case "Sem":
+                      $aData = array('UserID' => (int)$_GET['userId'],"PropertyDefinitionID"=>$profile->PropertyDefinitionID,"PropertyValue"=>$_GET['sem'],"CreatedOnDate"=>date('Y-m-d H:i:s'),"LastModifiedOnDate"=>date('Y-m-d H:i:s'));
+                        $this->oModel->addUserProfile($aData);
+                      break;
+              }
+          }
+             $this->oUtil->oPosts = array(200,"Updated successfull",'');
+        $this->oUtil->getView('RegistrationStepOne');
+                
+         
+        }
+        else
+            {
+             $this->oUtil->oPosts = array(400,"Invalid Request",'');
+                  $this->oUtil->getView('RegistrationStepOne');
+            }
+    }
+    
      public function update()
     {
             if (!empty($_POST['verificationCode']) && $_POST['verificationCode']==$_POST['OTPhidden']) // Allow a maximum of 50 characters
@@ -161,6 +264,15 @@ class Registration {
                 {
                      if ($this->oModel->addUser($aData))
                     { 
+                         $userData = $this->oModel->checkUser($aData);
+                         foreach ($userData as $value) {
+                        $_SESSION['email'] = $value->email;
+                        if((boolean)$value->isRegistrationComplete)
+                        $_SESSION['getUserRegistrationComplete']=1 ;
+                        else
+                            $_SESSION['getUserRegistrationComplete']=0 ;
+                        $_SESSION['userId']= $value->userId;
+                         }
                         $_SESSION['is_logged'] = 1;
                         $this->oUtil->getView('add_post');
                         $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
@@ -217,6 +329,8 @@ class Registration {
                 $this->oUtil->getView('RegistrationStepOne');
             } 
     }
+    
+    
             
 }
 ?>

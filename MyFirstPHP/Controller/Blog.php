@@ -27,7 +27,7 @@ class Blog
         /** Get the Model class in all the controller class **/
         $this->oUtil->getModel('Blog');
         $this->oModel = new \TestProject\Model\Blog;
-
+        $this->oUtil->oFields = $this->oModel->getAllFields();
         /** Get the Post ID in the constructor in order to avoid the duplication of the same code **/
         $this->_iId = (int) (!empty($_GET['id']) ? $_GET['id'] : 0);
         $this->_offSet = ((int) (!empty($_GET['offSet']) ? $_GET['offSet'] : 0))*self::MAX_POSTS;
@@ -133,7 +133,59 @@ class Blog
         else
             exit('Whoops! Post cannot be deleted.');
     }
+    
+    public function autoComplete()
+    {
+        switch ($_GET['type'])
+        {
+            case 'degree':
+                 $this->oUtil->objAuto = $this->oModel->getDegree($_GET['fieldId']);
+                $this->oUtil->getView('autocompleteApi');
+               break;
+           case 'specialization':
+                   $this->oUtil->objAuto = $this->oModel->specialization($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+                $this->oUtil->getView('autocompleteApi');
+               break;
+           case 'topics':
+                   $this->oUtil->objAuto = $this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+                $this->oUtil->getView('autocompleteApi');
+               break;
+            default:
+                $this->oUtil->objAuto = $this->oModel->getAllFields();
+                $this->oUtil->getView('autocompleteApi');
+                break;
+        } 
+    }
+    
+    public function mobileautoComplete()
+    {
+        switch ($_GET['type'])
+        {
+            case 'degree':
+                 $this->oUtil->objAuto = $this->oModel->getDegree($_GET['fieldId']);
+                $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
+                $this->oUtil->getView('mobileAutoCompleteApi');
+               break;
+           case 'specialization':
+                   $this->oUtil->objAuto = $this->oModel->specialization($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+                 $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
+                $this->oUtil->getView('mobileAutoCompleteApi');
+               break;
+           case 'topics':
+                   $this->oUtil->objAuto = $this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+               $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
+                $this->oUtil->getView('mobileAutoCompleteApi');
+               break;
+            default:
+                $this->oUtil->objAuto = $this->oModel->getAllFields();
+                $this->oUtil->oPosts = array(200,"User Information",$this->objAuto);
+                $this->oUtil->getView('mobileAutoCompleteApi');
+                break;
+        } 
+    }
+    
 
+    
     protected function isLogged()
     {
         return !empty($_SESSION['is_logged']);

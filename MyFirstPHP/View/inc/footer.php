@@ -6,30 +6,7 @@
  * @link             http://hizup.uk
  */
 ?>
-</div>
-</div>
-    </section>
-    
-    <!--Section End-->
-    <!--Footer Start-->
-    <footer class="container-fluid">
-               <p class="italic"><strong><a href="<?=ROOT_URL?>" title="Homeage">Solve My Doubt</a></strong> &nbsp; | &nbsp;
-                <?php if (!empty($_SESSION['is_logged'])): ?>
-                    You are connected as Admin - <a href="<?=ROOT_URL?>?p=admin&amp;a=logout">Logout</a> &nbsp; | &nbsp;
-                    <a href="<?=ROOT_URL?>?p=blog&amp;a=all">View All Blog Posts</a>
-                <?php else: ?>
-                    <a href="<?=ROOT_URL?>?p=admin&amp;a=login">Backend Login</a>
-                <?php endif ?>
-                </p>
-       
-                    <p>&copy; Copyright 2017 Solve My Doubt</p>
 
-
-    </footer>
-    <!--Footer End-->
-
-
-</body>
-
-</html>
-       
+<footer class="footer col-xs-12">
+    <div class="footerContents"><span>© Copyright 2017 Solve My Doubt Inc. All Rights Reserved</span> | <a href="#" id="btn_termsofuse" target="_blank">Terms of Use</a> | <a href="#" id="btn_privacypolicy" target="_blank">Privacy Policy</a> | <a href="#" id="btn_support" target="_blank">Support</a></div>
+</footer> 

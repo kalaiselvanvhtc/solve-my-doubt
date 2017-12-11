@@ -15,7 +15,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SMD | Sign Up</title>
+		<title>SMD | Complete Registration</title>
 		  
 		<!-- Bootstrap -->
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -33,34 +33,62 @@
 	</head>
 <body>
     
-    
- <div id="content-wrapper">
+    <?php require 'inc/header.php' ?>
+ 
 	<div class="container">
-	<div class="login-form">
-            <div class="NetworkLogo"><a class="logo" href="#"><span class="logotext">Step1: Complete your registration</span></a>
-            </div>
-            
+	<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10">    
                
 		<form id="login-form" method="post" class="form-signin" action="?p=Registration&amp;a=update">
+                    <h2 class="tagline">Complete your registration</h2>
                     <?php require 'inc/msg.php' ?>
-			<input name="verificationCode"  style="margin-bottom: 30px;" value="" required="required" id="verificationCode" type="number" class="form-control"placeholder="Verification Code" autofocus> 
-                        <input name="name" id="name" style="margin-bottom: 30px;" required="required" type="text" class="form-control"placeholder="Name" /> 
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+                         <input name="verificationCode"  style="margin-bottom: 30px;" value="" required="required" id="verificationCode" type="number" class="form-control"placeholder="Verification Code" autofocus> 
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						 <input name="name" id="name" style="margin-bottom: 30px;" required="required" type="text" class="form-control"placeholder="Name" /> 
+					</div>
+				</div>
+			</div>
+		
+                   
+                       <div class="form-group">
                         <input name="email" id="email" style="margin-bottom: 30px;" required="required" type="email" class="form-control"placeholder="Email" /> 
-                        <input name="password" id="password" required="required" type="password" class="form-control" placeholder="Password" /> 
-                         <input name="confirm_password" id="confirm_password" required="required" type="password" class="form-control" placeholder="Confirm Password" /> 
+                       </div>
+                        <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+                         <input name="password" id="password" required="required" type="password" class="form-control" placeholder="Password" /> 
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						  <input name="confirm_password" id="confirm_password" required="required" type="password" class="form-control" placeholder="Confirm Password" /> 
+					</div>
+				</div>
+			</div>
+                       
+                       
 			<input name="OTPhidden" type="hidden" value="<?=htmlspecialchars($_SESSION["OTP"])?>" />
                         <input name="numberhidden" type="hidden" value="<?=htmlspecialchars($_SESSION["PhoneNumber"])?>" />
-			<button class="btn btn-block bt-login" type="submit">Submit</button>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-6 pull-right paddingR0">
+                            <button class="btn btn-block bt-login btn-affermative" type="submit">Submit</button>
+                        </div>
 		
            
             </form>
             
 <!-- HTML for displaying user details -->
 
-           
+        </div>   
 	</div>
 </div>
-     </div>
+      <?php require 'inc/footer.php' ?>
+     
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script

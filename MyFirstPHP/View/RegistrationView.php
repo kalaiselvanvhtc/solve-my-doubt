@@ -14,7 +14,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SMD | Sign Up</title>
+		<title>SMD | Generate OTP</title>
 		  
 		<!-- Bootstrap -->
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -32,28 +32,30 @@
 	</head>
 <body>
     
-    
- <div id="content-wrapper">
+     <?php require 'inc/header.php' ?>
+ 
 	<div class="container">
-	<div class="login-form">
-            <div class="NetworkLogo"><a class="logo" href="#"><span class="logotext">Step1: Request Verification Code</span></a>
-             <h2 class="tagline">We will send and SMS with a 4 digit verification code to the phone number provided below. You will need to enter this code in the next screen in order to finish your registration.</h2>
-            </div>
-               
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10">
 		<form id="login-form" method="post" class="form-signin" action="?p=Registration&amp;a=add">
+                    <h2 class="tagline">We will send and SMS with a 4 digit verification code to the phone number provided below. You will need to enter this code in the next screen in order to finish your registration.</h2>
                     <?php require 'inc/msg.php' ?>
-			<input name="phoneNumber" min="10" max="10" id="phoneNumber" style="margin-bottom: 30px;" type="text" class="form-control"placeholder="Phone number" autofocus /> 
+                    <div class="form-group paddingL0 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+				<input name="phoneNumber" min="10" max="10" id="phoneNumber" style="margin-bottom: 20px;" type="text" class="form-control input-lg" placeholder="Phone number" autofocus /> 
+		<input class="btn btn-block bt-login form-control btn-affermative" type="submit" name="generateOTP" id="generateOTP" value="Generate OTP"  />	
+                    </div>
 			
-                        <input class="btn btn-block bt-login" type="submit" name="generateOTP" id="generateOTP" value="Generate OTP"  />
-           
+				
+                                    
             </form>
             
 <!-- HTML for displaying user details -->
 
-           
+    </div>
 	</div>
 </div>
-     </div>
+       <?php require 'inc/footer.php' ?>
+     
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script

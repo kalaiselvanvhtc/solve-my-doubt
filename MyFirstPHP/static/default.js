@@ -1,0 +1,155 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+var fieldValue='';
+var degreeValue='';
+
+    if($("#isUserRegComlete").val()==0){
+        $("#IncompleteRegForm").modal(
+                {
+                    backdrop:'static',
+                    keybaord:false
+                }
+                );
+    }
+     if($("#isUserLoggedIn").val()==1){
+         $(".userprofile").removeClass("hidden");
+         $(".logout").removeClass("hidden");
+     }
+   $('#field').selectpicker();
+   $('#field').on('hidden.bs.select', function (e) {
+       
+  $.ajax({
+		      			url : 'api.php?p=Blog&a=autoComplete',
+		      			dataType: "json",
+						data: {
+						   fieldId: $('#field').val(),
+						   type: 'degree'
+						},
+						 success: function( data ) {
+                                                     $('#degree').children().remove();
+							  $.map( data, function( item ) {
+                                                             $('#degree').append('<option value="'+item.Id+'">'+item.Name+'</option>');
+							});
+                                                         $('#degree').append('<option value="-1">Other</option>');
+                                                        $('#degree').selectpicker('refresh'); 
+						}
+		      		});
+  
+});
+$('.bootstrap-select').click(function (e) {
+    if($('#field').val()=='')
+       $('#field').select(); 
+});
+var specId_array = new Array();
+
+   $('#degree').selectpicker();
+   $('#year').selectpicker();
+   $('#sem').selectpicker();
+   $("#specialization").autocomplete({
+                    minLength: 1,
+                    multiselect: true,
+            source: function( request, response ) {
+		      		$.ajax({
+		      			url : 'api.php?p=Blog&a=autoComplete',
+		      			dataType: "json",
+						data: {
+						   name_startsWith: request.term,
+                                                   fieldId: $('#field').val(),
+                                                   degreeId: $('#degree').val(),
+						   type: 'specialization'
+						},
+						 success: function( data ) {
+							response(  $.map( data, function( item ) {
+								return {
+									label: item.Name,
+									value: item.Name
+								}
+							}));
+						}
+		      		});
+		      	}
+                });
+                
+                $("#topicsgoodat").autocomplete({
+                    minLength: 1,
+                    multiselect: true,
+            source: function( request, response ) {
+		      		$.ajax({
+		      			url : 'api.php?p=Blog&a=autoComplete',
+		      			dataType: "json",
+						data: {
+						   name_startsWith: request.term,
+                                                   fieldId: $('#field').val(),
+                                                   degreeId: $('#degree').val(),
+						   type: 'topics'
+						},
+						 success: function( data ) {
+							response(  $.map( data, function( item ) {
+								return {
+									label: item.Name,
+									value: item.Name
+								}
+							}));
+						}
+		      		});
+		      	}
+                });
+                
+                $("#topicsneed").autocomplete({
+                    minLength: 1,
+                    multiselect: true,
+            source: function( request, response ) {
+		      		$.ajax({
+		      			url : 'api.php?p=Blog&a=autoComplete',
+		      			dataType: "json",
+						data: {
+						   name_startsWith: request.term,
+                                                   fieldId: $('#field').val(),
+                                                   degreeId: $('#degree').val(),
+						   type: 'topics'
+						},
+						 success: function( data ) {
+							response(  $.map( data, function( item ) {
+								return {
+									label: item.Name,
+									value: item.Name
+								}
+							}));
+						}
+		      		});
+		      	}
+                });
+                
+                function split(val) {
+            return val.split(/,\s*/);
+        }
+ function extractLast(term) {
+            return split(term).pop();
+        }
+        
+        $("#IncompleteRegFormSubmit").click(function(){
+            $("#specialization").parent().children("div").each(function(){
+                if($("#specializationHidden")[0].value!='')
+                $("#specializationHidden")[0].value=$("#specializationHidden")[0].value+','+$(this).find("span")[1].innerHTML;
+                else
+                    $("#specializationHidden")[0].value=$(this).find("span")[1].innerHTML;
+            });
+            $("#topicsgoodat").parent().children("div").each(function(){
+            if($("#topicGoodHidden")[0].value!='')
+                $("#topicGoodHidden")[0].value=$("#topicGoodHidden")[0].value+','+$(this).find("span")[1].innerHTML;
+            else
+                $("#topicGoodHidden")[0].value=$(this).find("span")[1].innerHTML;
+            });
+            $("#topicsneed").parent().children("div").each(function(){
+                if($("#topicHelpHidden")[0].value!='')
+           $("#topicHelpHidden")[0].value=$("#topicHelpHidden")[0].value+','+$(this).find("span")[1].innerHTML;
+            else
+           $("#topicHelpHidden")[0].value=$(this).find("span")[1].innerHTML;
+            });
+             $("#fieldHidden")[0].value=$("#field option:selected").text();
+             $("#degreeHidden")[0].value=$("#degree option:selected").text();
+            //return false;
+        });

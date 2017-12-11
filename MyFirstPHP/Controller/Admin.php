@@ -38,9 +38,7 @@ class Admin extends Blog
 
     public function logout()
     {
-        if (!$this->isLogged())
-            exit;
-
+       
         // If there is a session, destroy it to disconnect the admin
         if (!empty($_SESSION))
         {

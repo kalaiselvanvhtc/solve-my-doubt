@@ -33,6 +33,47 @@ class Blog
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    public function getAllFields()
+    {
+        $oStmt = $this->oDb->query('SELECT * FROM Field');
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+     public function getDegree($fieldId)
+    {
+        $oStmt = $this->oDb->prepare('SELECT DegreeId as Id, DegreeName as Name FROM Degree WHERE FieldId = :fieldId');
+         $oStmt->bindParam(':fieldId', $fieldId, \PDO::PARAM_INT);
+         $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+     public function specialization($fieldId,$degreeId,$spec)
+    {
+         $spec = "%".$spec."%";
+        $oStmt = $this->oDb->prepare('SELECT SpecializationId as Id, SpecializationName as Name FROM Specialization WHERE FieldId = :fieldId AND DegreeId = :degreeId AND SpecializationName LIKE :specializationName');
+         $oStmt->bindParam(':fieldId', $fieldId, \PDO::PARAM_INT);
+         $oStmt->bindParam(':degreeId', $degreeId, \PDO::PARAM_INT);
+         $oStmt->bindParam(':specializationName', $spec, \PDO::PARAM_STR);
+         $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+     public function topic($fieldId,$degreeId,$topic)
+    {
+         $topic = "%".$topic."%";
+         /* Execute a prepared statement using an array of values for an IN clause */
+       // $params = array(1, 21, 63, 171);
+         /* Create a string for the parameter placeholders filled to the number of params */
+       // $place_holders = implode(',', array_fill(0, count($params), '?'));
+        $oStmt = $this->oDb->prepare('SELECT TopicId as Id, TopicName as Name FROM Topics WHERE FieldId = :fieldId AND DegreeId = :degreeId AND TopicName LIKE :topicName');
+         $oStmt->bindParam(':fieldId', $fieldId, \PDO::PARAM_INT);
+         $oStmt->bindParam(':degreeId', $degreeId, \PDO::PARAM_INT);
+         $oStmt->bindParam(':topicName', $topic, \PDO::PARAM_STR);
+         $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+    
     public function add(array $aData)
     {
         $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, body, createdDate) VALUES(:title, :body, :created_date)');

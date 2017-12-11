@@ -13,11 +13,36 @@ class Admin extends Blog
     public function login($sEmail) 
     {
         
-        $oStmt = $this->oDb->prepare('SELECT email, password FROM users WHERE email = :email OR phone_Number = :email LIMIT 1');
+        $oStmt = $this->oDb->prepare('SELECT email, password, userId,isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :email LIMIT 1');
         $oStmt->bindValue(':email', $sEmail, \PDO::PARAM_STR);
         $oStmt->execute();
         $oRow = $oStmt->fetch(\PDO::FETCH_OBJ);
 
-        return @$oRow->password; // Use the PHP 5.5 password function
+        return @$oRow; // Use the PHP 5.5 password function
+    }
+    
+    public function getUserRegistrationComplete($sEmail) 
+    {
+        
+        $oStmt = $this->oDb->prepare('SELECT isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :email LIMIT 1');
+        $oStmt->bindValue(':email',$sEmail, \PDO::PARAM_STR);
+        $oStmt->execute();
+        $oRow = $oStmt->fetch(\PDO::FETCH_OBJ);
+
+        return @$oRow->isRegistrationComplete; // Use the PHP 5.5 password function
+    }
+        
+    function checkUser($userData){
+        
+        if(!empty($userData)){
+            // Check whether user data already exists in database
+             $oStmt = $this->oDb->prepare('SELECT * FROM users WHERE email = :email OR phone_Number = :email');
+        $oStmt->bindParam(':email', $userData['email'], \PDO::PARAM_STR);
+        $oStmt->execute();
+        $userData = $oStmt->fetchAll(\PDO::FETCH_OBJ);
+        }
+        
+        // Return user data
+        return $userData;
     }
 }
