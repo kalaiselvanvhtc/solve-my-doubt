@@ -47,16 +47,17 @@ class SocialLogin {
         {    
                  $hashPassword=  password_hash("1234" , PASSWORD_BCRYPT, array('cost' => 14));
                 $aData = array('first_name' => $_GET['name'],"last_name"=>$_GET['name'],"full_name"=>$_GET['name'],"email"=>$_GET['email'],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>$_GET['email']);//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
-                
-                if ($this->oModel->checkUser($aData))
+                 $userData = $this->oModel->checkUser($aData);
+                if ($userData)
                 {
-                 $this->oUtil->oPosts = array(200,"Registered successfull",$_GET['email']);
+                 $this->oUtil->oPosts = array(200,"Registered successfull",$userData);
 
                  $this->oUtil->getView('LoginApi');  
                 }
                 else if ($this->oModel->addUser($aData))
                 { 
-                    $this->oUtil->oPosts = array(200,"Registered successfull",$_GET['email']);
+                    $userData = $this->oModel->checkUser($aData);
+                    $this->oUtil->oPosts = array(200,"Registered successfull",$userData);
 
                  $this->oUtil->getView('LoginApi');  
                 }
@@ -77,7 +78,9 @@ class SocialLogin {
             $sHashPassword =  $this->oModel->login($_GET['email']);
             if (password_verify($_GET['password'], $sHashPassword))
             {
-                $this->oUtil->oPosts = array(200,"Login successfull",$_GET['email']);
+                $aData = array('first_name' =>"","last_name"=>"","full_name"=>"","email"=>$_GET['email'],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>$_GET['email']);//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
+                 $userData = $this->oModel->checkUser($aData);
+                $this->oUtil->oPosts = array(200,"Login successfull",$userData);
                 $this->oUtil->getView('LoginApi');  
             }
             else
