@@ -32,9 +32,9 @@ class UserProfile {
     {
         $oStmt = $this->oDb->prepare("
 SELECT UserID,
-         MAX(CASE WHEN PD.PropertyName = 'FullName' THEN PropertyValue ELSE NULL END) AS FullName,
-         MAX(CASE WHEN PD.PropertyName = 'PhoneNumber' THEN PropertyValue ELSE NULL END) AS PhoneNumber,
-         MAX(CASE WHEN PD.PropertyName = 'Email' THEN PropertyValue ELSE NULL END) AS Email,
+         MAX(CASE WHEN PD.PropertyName = 'FullName' THEN PropertyValue ELSE '' END) AS FullName,
+         MAX(CASE WHEN PD.PropertyName = 'PhoneNumber' THEN PropertyValue ELSE '' END) AS PhoneNumber,
+         MAX(CASE WHEN PD.PropertyName = 'Email' THEN PropertyValue ELSE '' END) AS Email,
 		MAX(CASE WHEN PD.PropertyName = 'Field' THEN PropertyValue ELSE NULL END) AS Field,
 		 MAX(CASE WHEN PD.PropertyName = 'Degree' THEN PropertyValue ELSE NULL END) AS Degree,
 		 MAX(CASE WHEN PD.PropertyName = 'Specialization' THEN PropertyValue ELSE NULL END) AS Specialization,
