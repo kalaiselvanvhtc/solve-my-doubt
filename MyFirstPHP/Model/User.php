@@ -64,6 +64,10 @@ class User {
                 // Insert user data
                $oStmt = $this->oDb->prepare('INSERT INTO users(first_name,last_name,full_name,email,createdDate,modifiedDate,password,phone_Number) VALUES(:first_name,:last_name,:full_name,:email,:createdDate,:modifiedDate,:password,:phone_Number)');//, last_name, full_name,email,createdDate,modifiedDate) VALUES(:first_name, :last_name,:full_name,:email,:createdDate,:modifiedDate');
                 $oStmt->execute($userData);
+                 $oStmt = $this->oDb->prepare('UPDATE Users SET isRegistrationComplete=0 WHERE email = :email OR phone_Number = :email');
+               $oStmt->bindParam(':email', $userData['email'], \PDO::PARAM_STR);
+               $oStmt->execute();
+               $_SESSION['getUserRegistrationComplete']=0;
             }
              $oStmt = $this->oDb->prepare('SELECT * FROM users WHERE email = :email OR phone_Number = :phone_Number');
         $oStmt->bindParam(':email', $userData['email'], \PDO::PARAM_STR);
