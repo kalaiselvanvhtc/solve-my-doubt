@@ -112,7 +112,7 @@ class SocialLogin {
                 $myArray = explode(',', $_POST['social_user_info']);
                 $aData = array('first_name' => $myArray[0],"last_name"=>$myArray[0],"full_name"=>$myArray[0],"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>"124");//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
                 $userData = $this->oModel->checkUser($aData);
-                         
+                $_SESSION['Profilehoto'] = $myArray[2];   
                 if ($userData)
                 {
                     $_SESSION['is_logged'] = 1;
@@ -155,6 +155,7 @@ class SocialLogin {
             $sHashPassword =  $this->oModel->login($_POST['email']);
             if (password_verify($_POST['password'], $sHashPassword->password))
             {
+                $_SESSION['Profilehoto'] = "./images/no_avatar.gif"; 
                   $_SESSION['userId'] = $sHashPassword->userId;
                   $_SESSION['email'] = $sHashPassword->email;
                   if((boolean)$sHashPassword->isRegistrationComplete)

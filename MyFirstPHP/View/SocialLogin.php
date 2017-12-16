@@ -109,7 +109,7 @@
             profileHTML += '<img src="'+resp.image.url+'"/><div class="proDetails"><p>'+resp.displayName+'</p><p>'+resp.emails[0].value+'</p><p>'+resp.gender+'</p><p>'+resp.id+'</p><p><a href="'+resp.url+'">View Google+ Profile</a></p></div></div>';
             
             
-            document.getElementById('social_user_info').value =resp.displayName+','+resp.emails[0].value;
+            document.getElementById('social_user_info').value =resp.displayName+','+resp.emails[0].value+','+resp.image.url;
             document.getElementById("social_authenticate").click();
             
         });
@@ -151,7 +151,7 @@ function signOut() {
     // for FB.getLoginStatus().
    
       // Logged into your app and Facebook.
-       document.getElementById('social_user_info').value =response.name+','+response.email;
+       document.getElementById('social_user_info').value =response.name+','+response.email+',https://graph.facebook.com/'+response.id+'/picture';
        document.getElementById("social_authenticate").click();
     
     });
@@ -170,7 +170,7 @@ function signOut() {
    FB.getLoginStatus(function(response) {
        if (response.status === 'connected') {
     FB.api('/me', { locale: 'tr_TR', fields: 'name, email,birthday, hometown,education,gender,website,work' },function(response) {
-                   document.getElementById('social_user_info').value =response.name+','+response.email;
+                   document.getElementById('social_user_info').value =response.name+','+response.email+',https://graph.facebook.com/'+response.id+'/picture';
                    document.getElementById("social_authenticate").click();
                });
            }

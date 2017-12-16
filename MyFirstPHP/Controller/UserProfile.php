@@ -42,11 +42,19 @@ class UserProfile {
      
     }
     
-    public function mobilegetuserinfo($userId)
+    public function mobilegetuserinfo()
     {
-         $this->oUtil->oUserInfo = $this->oModel->getUserInfo($userId);
-          $this->oUtil->oPosts = array(200,"User Information",$this->oUserInfo);
-        $this->oUtil->getView('UserProfileApi');
+        if(isset($_GET['userId']))
+        {
+          $this->oUtil->oPosts = array(200,"User Information",$this->oModel->getUserInfo($_GET['userId']));
+            $this->oUtil->getView('UserProfileApi');
+        }
+ else {
+     
+                $this->oUtil->oPosts = array(400,"Invalid Request",'');
+                $this->oUtil->getView('UserProfileApi');  
+               
+ }
      
     }
     

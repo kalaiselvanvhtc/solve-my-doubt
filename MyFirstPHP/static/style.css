@@ -1,16 +1,16 @@
 
 header {
     height:100px;
-    background:-webkit-linear-gradient(left,#101010 0%,#101010 130%);
-    background-color:#101010;
+    background:-webkit-linear-gradient(left,#0089c5 0%,#0089c5 130%);
+    background-color:#0089c5;
     padding:5px;
     margin:5px;
     text-align:center;
 }
 footer {
     height:100px;
-    background:-webkit-linear-gradient(left,#101010 0%,#101010 130%);
-    background-color:#101010;
+    background:-webkit-linear-gradient(left,#0C5C92 0%,#0C5C92 130%);
+    background-color:#0C5C92;
     padding:5px;
     text-align:center;
 }

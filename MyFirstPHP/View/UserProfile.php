@@ -42,7 +42,7 @@
  <div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
 					<div class="form-group">
-                                            <img src="./images/index.jpeg" class="width100Per" title="Profile Photo" />
+                                            <img src="<?=$_SESSION['Profilehoto']?>" class="width100Per" title="Profile Photo" />
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
