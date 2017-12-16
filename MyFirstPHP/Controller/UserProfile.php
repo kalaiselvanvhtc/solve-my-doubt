@@ -46,7 +46,7 @@ class UserProfile {
     {
         if(isset($_GET['userId']))
         {
-          $this->oUtil->oPosts = array(200,"User Information",$this->oModel->getUserInfo($_GET['userId']));
+          $this->oUtil->oPosts = array(200,"User Information",$this->oModel->getMobileUserInfo($_GET['userId']));
             $this->oUtil->getView('UserProfileApi');
         }
  else {
