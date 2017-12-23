@@ -62,6 +62,10 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                     ).append(
                         $("<span></span>")
                             .addClass("hidden")
+                            .text(ui.item.label)
+                    ).append(
+                        $("<span></span>")
+                            .addClass("hidden")
                             .text(ui.item.value)
                     )
                     .insertBefore(self.element);

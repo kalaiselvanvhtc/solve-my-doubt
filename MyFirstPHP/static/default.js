@@ -65,7 +65,7 @@ var specId_array = new Array();
 							response(  $.map( data, function( item ) {
 								return {
 									label: item.Name,
-									value: item.Name
+									value: item.Id
 								}
 							}));
 						}
@@ -77,13 +77,22 @@ var specId_array = new Array();
                     minLength: 1,
                     multiselect: true,
             source: function( request, response ) {
+                $("#specializationHidden")[0].value='';
+                $("#specialization").parent().children("div").each(function(){
+                if($("#specializationHidden")[0].value!='')
+                $("#specializationHidden")[0].value=$("#specializationHidden")[0].value+','+$(this).find("span")[2].innerHTML;
+                else
+                    $("#specializationHidden")[0].value=$(this).find("span")[2].innerHTML;
+            });
 		      		$.ajax({
 		      			url : 'api.php?p=Blog&a=autoComplete',
 		      			dataType: "json",
 						data: {
+                                                    
 						   name_startsWith: request.term,
                                                    fieldId: $('#field').val(),
                                                    degreeId: $('#degree').val(),
+                                                   speciazation:$("#specializationHidden")[0].value,
 						   type: 'topics'
 						},
 						 success: function( data ) {
@@ -102,6 +111,13 @@ var specId_array = new Array();
                     minLength: 1,
                     multiselect: true,
             source: function( request, response ) {
+               $("#specializationHidden")[0].value='';
+                $("#specialization").parent().children("div").each(function(){
+                if($("#specializationHidden")[0].value!='')
+                $("#specializationHidden")[0].value=$("#specializationHidden")[0].value+','+$(this).find("span")[2].innerHTML;
+                else
+                    $("#specializationHidden")[0].value=$(this).find("span")[2].innerHTML;
+            });
 		      		$.ajax({
 		      			url : 'api.php?p=Blog&a=autoComplete',
 		      			dataType: "json",
@@ -109,6 +125,7 @@ var specId_array = new Array();
 						   name_startsWith: request.term,
                                                    fieldId: $('#field').val(),
                                                    degreeId: $('#degree').val(),
+                                                   speciazation:$("#specializationHidden")[0].value,
 						   type: 'topics'
 						},
 						 success: function( data ) {
@@ -131,6 +148,11 @@ var specId_array = new Array();
         }
         
         $("#IncompleteRegFormSubmit").click(function(){
+             $("#specializationHidden")[0].value='';
+             $("#topicGoodHidden")[0].value='';
+             $("#topicHelpHidden")[0].value='';
+             $("#degreeHidden")[0].value=''
+             $("#fieldHidden")[0].value=''
             $("#specialization").parent().children("div").each(function(){
                 if($("#specializationHidden")[0].value!='')
                 $("#specializationHidden")[0].value=$("#specializationHidden")[0].value+','+$(this).find("span")[1].innerHTML;
@@ -152,4 +174,37 @@ var specId_array = new Array();
              $("#fieldHidden")[0].value=$("#field option:selected").text();
              $("#degreeHidden")[0].value=$("#degree option:selected").text();
             //return false;
+            if($("#topicHelpHidden")[0].value.trim()!='' && $("#specializationHidden")[0].value.trim()!='' && $("#topicGoodHidden")[0].value.trim()!='' && $("#fieldHidden")[0].value!='Select Field' && $("#degreeHidden")[0].value!='Select Degree')
+            {
+                return true;
+            }
+            else
+            {
+                if($("#topicHelpHidden")[0].value.trim()=='')
+                    $("#topicneedError").show();
+                else
+                    $("#topicneedError").hide();
+                
+                if($("#specializationHidden")[0].value.trim()=='')
+                    $("#specError").show();
+                else
+                    $("#specError").hide();
+                
+                if($("#topicGoodHidden")[0].value.trim()=='')
+                    $("#topicgoodError").show();
+                else
+                    $("#topicgoodError").hide();
+                
+                if($("#fieldHidden")[0].value=='Select Field')
+                    $("#fieldError").show();
+                else
+                    $("#fieldError").hide();
+                
+                  if($("#degreeHidden")[0].value=='Select Degree')
+                    $("#degreeError").show();
+                else
+                    $("#degreeError").hide();
+                    
+             return false;   
+            }
         });

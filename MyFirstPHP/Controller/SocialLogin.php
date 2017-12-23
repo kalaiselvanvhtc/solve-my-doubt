@@ -118,7 +118,7 @@ class SocialLogin {
                     $_SESSION['is_logged'] = 1;
                   foreach ($userData as $value) {
                         $_SESSION['email'] = $value->email;
-                         if((boolean)$value->isRegistrationComplete)
+                         if($value->isRegistrationComplete>0)
                             $_SESSION['getUserRegistrationComplete']= 1;
                            else 
                             $_SESSION['getUserRegistrationComplete']= 0;
@@ -133,7 +133,7 @@ class SocialLogin {
                      $_SESSION['is_logged'] = 1;
                      foreach ($userData as $value) {
                         $_SESSION['email'] = $value->email;
-                           if((boolean)$value->isRegistrationComplete)
+                            if($value->isRegistrationComplete>0)
                             $_SESSION['getUserRegistrationComplete']= 1;
                            else 
                             $_SESSION['getUserRegistrationComplete']= 0;
@@ -158,7 +158,7 @@ class SocialLogin {
                 $_SESSION['Profilehoto'] = "./images/no_avatar.gif"; 
                   $_SESSION['userId'] = $sHashPassword->userId;
                   $_SESSION['email'] = $sHashPassword->email;
-                  if((boolean)$sHashPassword->isRegistrationComplete)
+                  if($sHashPassword->isRegistrationComplete>0)
                 $_SESSION['getUserRegistrationComplete']= 1;
                 else 
                 $_SESSION['getUserRegistrationComplete']= 0;

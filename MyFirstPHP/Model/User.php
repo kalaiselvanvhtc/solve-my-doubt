@@ -25,7 +25,7 @@ class User {
      public function getUserRegistrationComplete($sEmail) 
     {
         
-        $oStmt = $this->oDb->prepare('SELECT isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :email LIMIT 1');
+        $oStmt = $this->oDb->prepare('SELECT CAST(isRegistrationComplete AS unsigned integer) AS isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :email LIMIT 1');
         $oStmt->bindValue(':email',$sEmail, \PDO::PARAM_STR);
         $oStmt->execute();
         $oRow = $oStmt->fetch(\PDO::FETCH_OBJ);
@@ -38,7 +38,7 @@ class User {
         
         if(!empty($userData)){
             // Check whether user data already exists in database
-             $oStmt = $this->oDb->prepare('SELECT * FROM users WHERE email = :email OR phone_Number = :phone_Number');
+             $oStmt = $this->oDb->prepare('SELECT userId,first_name,last_name,full_name,email,createdDate,modifiedDate,password,phone_Number,CAST(isRegistrationComplete AS unsigned integer) AS isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :phone_Number');
         $oStmt->bindParam(':email', $userData['email'], \PDO::PARAM_STR);
         $oStmt->bindParam(':phone_Number', $userData['phone_Number'], \PDO::PARAM_STR);
         $oStmt->execute();
@@ -69,7 +69,7 @@ class User {
                $oStmt->execute();
                $_SESSION['getUserRegistrationComplete']=0;
             }
-             $oStmt = $this->oDb->prepare('SELECT * FROM users WHERE email = :email OR phone_Number = :phone_Number');
+             $oStmt = $this->oDb->prepare('SELECT userId,first_name,last_name,full_name,email,createdDate,modifiedDate,password,phone_Number,CAST(isRegistrationComplete AS unsigned integer) AS isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :phone_Number');
         $oStmt->bindParam(':email', $userData['email'], \PDO::PARAM_STR);
         $oStmt->bindParam(':phone_Number', $userData['phone_Number'], \PDO::PARAM_STR);
         $oStmt->execute();
@@ -114,7 +114,7 @@ class User {
                $_SESSION['getUserRegistrationComplete']=1;
                 
             }
-             $oStmt = $this->oDb->prepare('SELECT * FROM users WHERE email = :email OR phone_Number = :phone_Number');
+             $oStmt = $this->oDb->prepare('SELECT userId,first_name,last_name,full_name,email,createdDate,modifiedDate,password,phone_Number,CAST(isRegistrationComplete AS unsigned integer) AS isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :phone_Number');
         $oStmt->bindParam(':email', $_SESSION['email'], \PDO::PARAM_STR);
         $oStmt->bindParam(':phone_Number', $_SESSION['email'], \PDO::PARAM_STR);
         $oStmt->execute();

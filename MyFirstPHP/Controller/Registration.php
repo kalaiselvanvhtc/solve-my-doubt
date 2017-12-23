@@ -267,7 +267,7 @@ class Registration {
                          $userData = $this->oModel->checkUser($aData);
                          foreach ($userData as $value) {
                         $_SESSION['email'] = $value->email;
-                        if((boolean)$value->isRegistrationComplete)
+                        if($value->isRegistrationComplete>0)
                         $_SESSION['getUserRegistrationComplete']=1 ;
                         else
                             $_SESSION['getUserRegistrationComplete']=0 ;

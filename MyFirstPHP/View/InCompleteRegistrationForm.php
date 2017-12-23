@@ -15,36 +15,39 @@
                     <h2 class="modal-title tagline">Please provide the following information</h2>
                     <?php require 'inc/msg.php' ?>
 				<div class="form-group">
-                        <select name="field" id="field" tabindex="0" required="required" title="Select Field" class="form-control">
+                        <select name="field" id="field" tabindex="0" title="Select Field" class="form-control">
                             
  <?php foreach ($this->oFields as $oPost): ?>
                             <option value="<?=$oPost->FieldId?>"><?=htmlspecialchars($oPost->FieldName)?></option>
     <?php endforeach ?>
 		</select>
+                                    <span id="fieldError" class="error" style="display: none">Please select Field</span>
                                 </div>
 			
 					<div class="form-group">
-                     <select name="degree" required="required" id="degree" tabindex="0" required="required" title="Select Degree" class="form-control">
+                     <select name="degree" required="required" id="degree" tabindex="0"  title="Select Degree" class="form-control">
                             <option value="-1">Other</option>
-		</select></div> 
+		</select>
+                                        <span id="degreeError" style="display: none" class="error">Please select Degree</span>
+                                        </div> 
                     
 				
 					<div class="form-group">
-                                           <input name="specialization" id="specialization"   type="text" class="form-control input-lg" placeholder="Specialization" /> 
-                                            
+                                           <input name="specialization" id="specialization"  type="text" class="form-control input-lg" placeholder="Specialization" /> 
+                                            <span id="specError" style="display: none" class="error">Please enter Specialization</span>
 					</div>
                     <div class="form-group">
                                             <input name="topicsgoodat" id="topicsgoodat" type="text" class="form-control input-lg" placeholder="Topics you are good at" /> 
-                                           
+                                           <span id="topicgoodError" style="display: none" class="error">Please enter Topic</span>
                                             
 					</div>
                     <div class="form-group">
-                                            <input name="topicsneed" id="topicsneed"  type="text" class="form-control input-lg" placeholder="Topics you need help with" /> 
-                                           
+                                            <input name="topicsneed" id="topicsneed"  type="text"  class="form-control input-lg" placeholder="Topics you need help with" /> 
+                                           <span id="topicneedError" style="display: none" class="error">Please enter Topic</span>
                                             
 					</div>
                     <div class="form-group">
-                     <select name="year" id="year" tabindex="0" required="required" title="Select Year" class="form-control">
+                     <select name="year" id="year" tabindex="0"  title="Select Year" class="form-control">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -52,7 +55,7 @@
                             <option value="5">5</option>
 		</select></div> 
                     <div class="form-group">
-                     <select name="sem" id="sem" tabindex="0" required="required" title="Select Sem" class="form-control">
+                     <select name="sem" id="sem" tabindex="0" title="Select Sem" class="form-control">
                             <option value="1">1</option>
                             <option value="2">2</option>
 		</select></div> 

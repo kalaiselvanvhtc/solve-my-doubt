@@ -147,7 +147,7 @@ class Blog
                 $this->oUtil->getView('autocompleteApi');
                break;
            case 'topics':
-                   $this->oUtil->objAuto = $this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']);
+                   $this->oUtil->objAuto = $this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith'],$_GET['speciazation']);
                 $this->oUtil->getView('autocompleteApi');
                break;
             default:
@@ -170,7 +170,7 @@ class Blog
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
            case 'topics':
-               $this->oUtil->oPosts = array(200,"User Information",$this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith']));
+               $this->oUtil->oPosts = array(200,"User Information",$this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith'],$_GET['speciazation']));
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
             default:

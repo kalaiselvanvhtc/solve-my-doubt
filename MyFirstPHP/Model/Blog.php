@@ -64,13 +64,14 @@ class Blog
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
     
-     public function topic($fieldId,$degreeId,$topic)
+     public function topic($fieldId,$degreeId,$topic,$specId)
     {
          $topic = "%".$topic."%";
-         $oStmt = $this->oDb->prepare('SELECT TopicId as Id, TopicName as Name FROM Topics WHERE FieldId = :fieldId AND DegreeId = :degreeId AND TopicName LIKE :topicName');
+         $oStmt = $this->oDb->prepare('SELECT TopicId as Id, TopicName as Name FROM Topics WHERE find_in_set(SpecializationId, :specializationId) AND FieldId = :fieldId AND DegreeId = :degreeId AND TopicName LIKE :topicName');
          $oStmt->bindParam(':fieldId', $fieldId, \PDO::PARAM_INT);
          $oStmt->bindParam(':degreeId', $degreeId, \PDO::PARAM_INT);
          $oStmt->bindParam(':topicName', $topic, \PDO::PARAM_STR);
+         $oStmt->bindParam(':specializationId', $specId, \PDO::PARAM_STR);
          $oStmt->execute();
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }

@@ -36,7 +36,7 @@ class Admin extends Blog
         
         if(!empty($userData)){
             // Check whether user data already exists in database
-             $oStmt = $this->oDb->prepare('SELECT * FROM users WHERE email = :email OR phone_Number = :email');
+             $oStmt = $this->oDb->prepare('SELECT userId,first_name,last_name,full_name,email,createdDate,modifiedDate,password,phone_Number,CAST(isRegistrationComplete AS unsigned integer) AS isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :email');
         $oStmt->bindParam(':email', $userData['email'], \PDO::PARAM_STR);
         $oStmt->execute();
         $userData = $oStmt->fetchAll(\PDO::FETCH_OBJ);
