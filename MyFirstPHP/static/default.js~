@@ -6,7 +6,14 @@
 var fieldValue='';
 var degreeValue='';
 
-    
+    if($("#isUserRegComlete").val()==0){
+        $("#IncompleteRegForm").modal(
+                {
+                    backdrop:'static',
+                    keybaord:false
+                }
+                );
+    }
      if($("#isUserLoggedIn").val()==1){
          $(".userprofile").removeClass("hidden");
          $(".logout").removeClass("hidden");
