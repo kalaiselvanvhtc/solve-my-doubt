@@ -20,11 +20,15 @@ class Blog
 
     public function get($iOffset, $iLimit)
     {
-        $oStmt = $this->oDb->prepare('SELECT * FROM Posts ORDER BY createdDate DESC LIMIT :offset, :limit');
-        $oStmt->bindParam(':offset', $iOffset, \PDO::PARAM_INT);
-        $oStmt->bindParam(':limit', $iLimit, \PDO::PARAM_INT);
-        $oStmt->execute();
-        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+        $sql = 'CALL GetDataOnScroll(:pageIndex,:pageSize)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':pageIndex', $iOffset, \PDO::PARAM_INT);
+       $oStmt->bindParam(':pageSize', $iLimit, \PDO::PARAM_INT);
+       $oStmt->execute();
+        // execute the stored procedure
+      return  $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public function getAll()
@@ -107,18 +111,48 @@ class Blog
     }
     
     
-    public function add(array $aData)
+    public function add(array $aData, $currentUserId)
     {
-        $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, body, createdDate) VALUES(:title, :body, :created_date)');
-        return $oStmt->execute($aData);
+        $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, body, createdDate,createdbyuserid) VALUES(:title, :body, :created_date,:createdbyuserid)');
+        $oStmt->execute($aData);
+        $currentPostId = $this->oDb->lastInsertId();
+        $sql = 'CALL AddTags(:currentUserId,:currentPostId)';
+ 
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+ 
+        // pass value to the command
+        $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
+       $oStmt->bindParam(':currentPostId', $currentPostId, \PDO::PARAM_INT);
+        // execute the stored procedure
+      return  $oStmt->execute();
+      
+        
     }
-
+    public function userTopics($currentUserId)
+    {
+        $sql = 'CALL GetUserTopics(:currentUserId)';
+ 
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+ 
+        // pass value to the command
+        $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
+         
+        // execute the stored procedure
+        $oStmt->execute();
+        return $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
     public function getById($iId)
     {
-        $oStmt = $this->oDb->prepare('SELECT * FROM Posts WHERE id = :postId LIMIT 1');
-        $oStmt->bindParam(':postId', $iId, \PDO::PARAM_INT);
-        $oStmt->execute();
-        return $oStmt->fetch(\PDO::FETCH_OBJ);
+         $sql = 'CALL GetQuestionById(:questionId)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':questionId', $iId, \PDO::PARAM_INT);
+       $oStmt->execute();
+        // execute the stored procedure
+      return  $oStmt->fetch(\PDO::FETCH_OBJ);
     }
 
     public function update(array $aData)

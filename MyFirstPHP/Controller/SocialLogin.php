@@ -34,7 +34,7 @@ class SocialLogin {
      public function login()
     {
          if($_SESSION['is_logged'])
-              header('Location: ' . ROOT_URL . '?p=UserProfile&a=getuserinfo');
+              header('Location: ' . ROOT_URL . '?p=blog&a=all');
         $this->oUtil->getView('SocialLogin');
      
     }
@@ -124,8 +124,7 @@ class SocialLogin {
                             $_SESSION['getUserRegistrationComplete']= 0;
                         $_SESSION['userId']= $value->userId;
                          }
-                    $this->oUtil->getView('add_post');
-                    $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
+                   header('Location: ' . ROOT_URL . '?p=blog&a=all');
                 }
                 else  if ($this->oModel->addUser($aData))
                 { 
@@ -140,8 +139,7 @@ class SocialLogin {
             
                         $_SESSION['userId']= $value->userId;
                          }
-                    $this->oUtil->getView('add_post');
-                    $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
+                   header('Location: ' . ROOT_URL . '?p=blog&a=all');
                 }
             }
         }
@@ -164,7 +162,7 @@ class SocialLogin {
                 $_SESSION['getUserRegistrationComplete']= 0;
             
                $_SESSION['is_logged'] = 1; // Admin is logged now
-                $this->oUtil->getView('add_post');
+               header('Location: ' . ROOT_URL . '?p=blog&a=all');
             }
             else
             {

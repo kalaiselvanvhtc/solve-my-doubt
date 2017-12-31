@@ -10,7 +10,7 @@ namespace TestProject\Controller;
 
 class Blog
 {
-    const MAX_POSTS = 3;
+    const MAX_POSTS = 10;
 
     protected $oUtil, $oModel;
     private $_iId;
@@ -38,8 +38,11 @@ class Blog
     // Homepage
     public function index()
     {
+        
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
         $this->oUtil->oPosts = $this->oModel->get($this->_offSet, self::MAX_POSTS); // Get only the latest X posts
-       if($this->_offSet>0){
+       if($this->_offSet>=0){
         $this->oUtil->getView('loadmoredata');
        }
        else
@@ -51,6 +54,9 @@ class Blog
 
     public function post()
     {
+        
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
         $this->oUtil->oPost = $this->oModel->getById($this->_iId); // Get the data of the post
 
         $this->oUtil->getView('post');
@@ -65,26 +71,33 @@ class Blog
     /***** For Admin (Back end) *****/
     public function all()
     {
-        if (!$this->isLogged()) exit;
+       
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
 
-        $this->oUtil->oPosts = $this->oModel->getAll();
-
+     
+ $this->oUtil->oPosts = $this->oModel->get(0, self::MAX_POSTS); // Get only the latest X posts
         $this->oUtil->getView('index');
     }
 
 
     public function add()
     {
-       // if (!$this->isLogged()) exit;
+        try {
+       
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
  
         if (!empty($_POST['add_submit']))
         {
             if (isset($_POST['title'], $_POST['body']) && mb_strlen($_POST['title']) <= 50) // Allow a maximum of 50 characters
             {
-                $aData = array('title' => $_POST['title'], 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'));
+                $aData = array('title' => $_POST['title'], 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'),'createdbyuserid'=>(int)$_SESSION['userId']);
 
-                if ($this->oModel->add($aData))
-                    $this->oUtil->sSuccMsg = 'Hurray!! The post has been added.';
+                if ($this->oModel->add($aData,(int)$_SESSION['userId']))
+                {
+                     header('Location: ' . ROOT_URL . '?p=blog&a=all');
+                }
                 else
                     $this->oUtil->sErrMsg = 'Whoops! An error has occurred! Please try again later.';
             }
@@ -95,11 +108,19 @@ class Blog
         }
 
         $this->oUtil->getView('add_post');
+        }
+
+catch (Exception $e) {
+  //display custom message
+   $this->oUtil->sErrMsg = $e->getMessage();
+}
     }
 
     public function edit()
     {
-        if (!$this->isLogged()) exit;
+        
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
 
         if (!empty($_POST['edit_submit']))
         {
@@ -108,7 +129,7 @@ class Blog
                 $aData = array('post_id' => $this->_iId, 'title' => $_POST['title'], 'body' => $_POST['body']);
 
                 if ($this->oModel->update($aData))
-                    $this->oUtil->sSuccMsg = 'Hurray! The post has been updated.';
+                     header('Location: ' . ROOT_URL . '?p=blog&a=all');
                 else
                     $this->oUtil->sErrMsg = 'Whoops! An error has occurred! Please try again later';
             }
@@ -126,7 +147,9 @@ class Blog
 
     public function delete()
     {
-        if (!$this->isLogged()) exit;
+      
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
 
         if (!empty($_POST['delete']) && $this->oModel->delete($this->_iId))
             header('Location: ' . ROOT_URL);
@@ -148,6 +171,10 @@ class Blog
                break;
            case 'topics':
                    $this->oUtil->objAuto = $this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith'],$_GET['speciazation']);
+                $this->oUtil->getView('autocompleteApi');
+               break;
+           case 'userTopics':
+                   $this->oUtil->objAuto = $this->oModel->userTopics((int)$_SESSION['userId']);
                 $this->oUtil->getView('autocompleteApi');
                break;
             default:
@@ -179,6 +206,12 @@ class Blog
                 $this->oUtil->getView('mobileAutoCompleteApi');
                 break;
         } 
+    }
+    
+    public function mobileIndex()
+    {
+        $this->oUtil->oPosts = array(200,"Home",$this->oModel->get($this->_offSet, self::MAX_POSTS));
+        $this->oUtil->getView('mobileAutoCompleteApi');
     }
     
 

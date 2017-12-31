@@ -192,7 +192,7 @@ class Registration {
                       break;
               }
           }
-             $this->oUtil->getView('add_post');
+             header('Location: ' . ROOT_URL . '?p=blog&a=all');
                 
          
         }
@@ -274,8 +274,7 @@ class Registration {
                         $_SESSION['userId']= $value->userId;
                          }
                         $_SESSION['is_logged'] = 1;
-                        $this->oUtil->getView('add_post');
-                        $this->oUtil->sErrMsg = 'Hurray!! The post has been added.';
+                       header('Location: ' . ROOT_URL . '?p=blog&a=all');
                     }
                     else
                      {

@@ -10,5 +10,6 @@
    
 
 
-   echo json_encode($json);
+
+    json_encode($json);
    ?>

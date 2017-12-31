@@ -1,4 +1,6 @@
-
+body{
+    padding-top: 50px;
+}
 header {
     height:100px;
     background:-webkit-linear-gradient(left,#0089c5 0%,#0089c5 130%);
@@ -45,7 +47,14 @@ min-height:730px;
 
 }
 
-
+#myNavbar ul.nav li a:hover,
+#myNavbar ul.nav li:hover a,
+#myNavbar ul.nav li a:focus,
+#myNavbar ul.nav li:focus a,
+#myNavbar .current-menu-parent a,
+#myNavbar .current-menu-parent {
+    background:#0C5C92 !important;
+}
 .menu li a {
     border-color: #ddd;
     padding-left: 15px;
@@ -470,3 +479,132 @@ button.btn.dropdown-toggle.btn-default {
     width:100% !important;
 }
 .error {color: #FF0000;}
+
+#post-data a
+{
+    text-decoration: none !important;
+color: #0089c5;
+}
+
+
+/* Create two equal columns that floats next to each other */
+.contcolumn {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+    text-align: left;
+    background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.176) !important;
+margin-top: 25px;
+padding-bottom: 20px !important;
+padding-left: 20px !important;
+margin-left: -10px !important;
+padding-right: 20px !important;
+}
+
+/* Clear floats after the columns */
+.controw::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.controw{
+    text-align: center;
+}
+ul.list-row-tags {
+    display: inline;
+    vertical-align: top;
+    margin: 0px;
+    padding: 0;
+    list-style: none;
+    margin-left: 0px !important;
+}
+.list-row-tags li, .list-row-tags li a {
+    background: #F7F7F7;
+    font-family: Proxima Nova Regular !important;
+    font-size: 14px !important;
+    color: #0089c5 !important;
+    cursor: pointer !important;
+    padding: 5px 10px 5px 10px !important;
+    margin: 0 5px 5px 0 !important;
+    display: inline;
+}
+ul.list-row-tags > li {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 5px 0 0;
+}
+.wall-blog-btm-banner {
+    padding: 15px 20px 15px 20px !important;
+    background: #fbfbfb;
+    margin-left: 0px !important;
+    margin-top: 3px !important;
+    box-shadow: 0px 1px 2px -1px rgba(0,0,0,0.176) !important;
+    margin-bottom: 15px;
+}
+.blog-postdate {
+    font-family: Proxima Nova Regular;
+    font-size: 14px;
+    color: #ccc;
+    float: right;
+}
+.breadcrumb {
+    border-radius: 0 !important;
+    padding: 0px !important;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 0px !important;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.176) !important;
+}
+.breadcrumb a, .breadcrumb span {
+    text-transform: uppercase;
+    color: #0089c5 !important;
+}
+.moduleContainer-normalView
+{
+    float: left;
+width: 100%;
+margin-right: 0px;
+margin-top: 20px;
+}
+.moduleContainer-normalView > .breadcrumb {
+    width: 100%;
+    float: left;
+    padding: 22px 20px 11px 20px !important;
+}
+.blog-detail-container {
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.176) !important;
+    background: #fff;
+    float: left;
+    width: 100%;
+    display: block;
+}
+.title-container {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+    padding: 0px 20px !important;
+
+}
+.title-container h3 {
+    margin-top: 0px !important;
+    color: #5C5C5C;
+}
+.detail-main-container {
+    padding: 25px 20px 20px 20px;
+    float: left;
+    width: 100%;
+    display: block;
+}
+a.SocialLink{
+    color:#0089c5;
+}
+.editBtn
+{
+    float: right;
+border: medium none;
+background: transparent none repeat scroll 0% 0%;
+color: rgb(0, 137, 197);
+}

@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -29,6 +29,8 @@
       <li><a href="#">About</a></li>
       <li><a href="#">Features</a></li>
       <li><a href="#">Contact Us</a></li>
+      <li class="home hidden"><a href="<?=ROOT_URL?>?p=blog&a=all">Home</a></li>
+       <li class="askquestion hidden"><a href="<?=ROOT_URL?>?p=blog&a=add">Ask Question</a></li>
       <li class="userprofile hidden"><a href="<?=ROOT_URL?>?p=UserProfile&a=getuserinfo">My Profile</a></li>
       <li class="logout hidden"><a href="<?=ROOT_URL?>?p=admin&a=logout">Logout</a></li>
     </ul>

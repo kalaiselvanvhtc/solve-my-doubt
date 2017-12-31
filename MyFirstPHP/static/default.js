@@ -17,6 +17,9 @@ var degreeValue='';
      if($("#isUserLoggedIn").val()==1){
          $(".userprofile").removeClass("hidden");
          $(".logout").removeClass("hidden");
+         $(".home").removeClass("hidden");
+         $(".askquestion").removeClass("hidden");
+         
      }
    $('#field').selectpicker();
    $('#field').on('hidden.bs.select', function (e) {
@@ -94,6 +97,28 @@ var specId_array = new Array();
                                                    degreeId: $('#degree').val(),
                                                    speciazation:$("#specializationHidden")[0].value,
 						   type: 'topics'
+						},
+						 success: function( data ) {
+							response(  $.map( data, function( item ) {
+								return {
+									label: item.Name,
+									value: item.Name
+								}
+							}));
+						}
+		      		});
+		      	}
+                });
+                
+                $("#title").autocomplete({
+                    minLength: 1,
+            source: function( request, response ) {
+               
+		      		$.ajax({
+		      			url : 'api.php?p=Blog&a=autoComplete',
+		      			dataType: "json",
+						data: {
+						   type: 'userTopics'
 						},
 						 success: function( data ) {
 							response(  $.map( data, function( item ) {
