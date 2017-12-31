@@ -200,6 +200,10 @@ catch (Exception $e) {
                $this->oUtil->oPosts = array(200,"User Information",$this->oModel->topic($_GET['fieldId'],$_GET['degreeId'],$_GET['name_startsWith'],$_GET['speciazation']));
                 $this->oUtil->getView('mobileAutoCompleteApi');
                break;
+             case 'userTopics':
+               $this->oUtil->oPosts = array(200,"User Topics",$this->oModel->userTopics((int)$_GET['userId']));
+                $this->oUtil->getView('mobileAutoCompleteApi');
+               break;
             default:
                 
                 $this->oUtil->oPosts = array(200,"User Information",$this->oModel->mobilegetAllFields());
@@ -210,14 +214,43 @@ catch (Exception $e) {
     
     public function mobileIndex()
     {
-        $this->oUtil->oPosts = array(200,"Home",$this->oModel->get($this->_offSet, self::MAX_POSTS));
+        $this->oUtil->oPosts = array(200,"List",$this->oModel->get($this->_offSet, self::MAX_POSTS));
         $this->oUtil->getView('mobileAutoCompleteApi');
     }
     
+    public function mobilepost()
+    {
+     $this->oUtil->oPosts = array(200,"Detail",$this->oModel->getById($_GET['id']));
+     $this->oUtil->getView('mobileAutoCompleteApi');
+    }
+    
+     public function mobileadd()
+    {
+            if (isset($_GET['title'], $_GET['body']) && mb_strlen($_GET['title']) <= 50) // Allow a maximum of 50 characters
+            {
+                $aData = array('title' => $_GET['title'], 'body' => $_GET['body'], 'created_date' => date('Y-m-d H:i:s'),'createdbyuserid'=>(int)$_GET['userId']);
 
+                if ($this->oModel->add($aData,(int)$_GET['userId']))
+                {
+                    $this->oUtil->oPosts = array(200,"User Information","Inserted successfully");
+                    $this->oUtil->getView('mobileAutoCompleteApi');
+                }
+                else{
+                    $this->oUtil->oPosts = array(200,"Error","Error in insert");
+                $this->oUtil->getView('mobileAutoCompleteApi');
+                }
+            }
+            else
+            {
+               $this->oUtil->oPosts = array(200,"Error","Error in validation");
+                $this->oUtil->getView('mobileAutoCompleteApi');
+            }       
+    }
     
     protected function isLogged()
     {
         return !empty($_SESSION['is_logged']);
     }
+    
+    
 }
