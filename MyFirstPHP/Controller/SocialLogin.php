@@ -76,7 +76,7 @@ class SocialLogin {
             $this->oModel = new \TestProject\Model\Admin;
 
             $sHashPassword =  $this->oModel->login($_GET['email']);
-            if (password_verify($_GET['password'], $sHashPassword))
+            if (password_verify($_GET['password'], $sHashPassword->password))
             {
                 $aData = array('first_name' =>"","last_name"=>"","full_name"=>"","email"=>$_GET['email'],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'),"password"=>$hashPassword,"phone_Number"=>$_GET['email']);//,,"email"=>$myArray[1],"createdDate"=>date('Y-m-d H:i:s'),"modifiedDate"=>date('Y-m-d H:i:s'));
                  $userData = $this->oModel->checkUser($aData);

@@ -21,7 +21,8 @@
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.min.css" rel="stylesheet">
                 <link href="static/style.css?v=1" rel="stylesheet" type="text/css"/>
                  
             
@@ -40,7 +41,8 @@
 	<div class="row">
          
     <div class="col-xs-12 col-sm-12 col-md-12"> 
-        <?php require 'InCompleteRegistrationForm.php' ?>
+        
+     <?php require 'InCompleteRegistrationForm.php' ?>
 <?php if (empty($this->oPosts)): ?>
     <p class="bold">There is no Blog Post.</p>
     <p><button type="button" onclick="window.location='<?=ROOT_URL?>?p=blog&amp;a=add'" class="bold">Add Your First Blog Post!</button></p>
@@ -52,7 +54,6 @@
 </div>   
 	</div>
 </div>
-
 <div class="ajax-load text-center" style="display:none">
 
     <p><img src="http://demo.itsolutionstuff.com/plugin/loader.gif">Loading More post</p>
@@ -75,6 +76,7 @@
           
     
 <script type="text/javascript">
+    
 var offSet = 1;
     $(window).scroll(function() {
 

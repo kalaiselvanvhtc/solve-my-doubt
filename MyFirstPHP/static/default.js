@@ -1,3 +1,4 @@
+$(function() {
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +7,14 @@
 var fieldValue='';
 var degreeValue='';
 
-    
+    if($("#isUserRegComlete").val()==0){
+        $("#IncompleteRegForm").modal(
+                {
+                    backdrop:'static',
+                    keybaord:false
+                }
+                );
+    }
      if($("#isUserLoggedIn").val()==1){
          $(".userprofile").removeClass("hidden");
          $(".logout").removeClass("hidden");
@@ -226,3 +234,4 @@ var specId_array = new Array();
              return false;   
             }
         });
+    });
