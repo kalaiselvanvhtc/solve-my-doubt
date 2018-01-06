@@ -47,12 +47,14 @@
     <p class="bold">There is no Blog Post.</p>
     <p><button type="button" onclick="window.location='<?=ROOT_URL?>?p=blog&amp;a=add'" class="bold">Add Your First Blog Post!</button></p>
 <?php else: ?>
-    <div  id="post-data" class="controw">
+    
+       
+	</div>
+    <div  id="post-data" class="col-xs-12 col-sm-12 col-md-12">
 <?php include('data.php'); ?>
     </div>
 <?php endif ?>
-</div>   
-	</div>
+</div>
 </div>
 <div class="ajax-load text-center" style="display:none">
 

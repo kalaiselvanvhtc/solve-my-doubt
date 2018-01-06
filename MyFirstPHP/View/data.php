@@ -1,6 +1,6 @@
 
  <?php foreach ($this->oPosts as $oPost): ?>
-<div class="contcolumn col-xs-12 col-sm-6 col-md-6">   
+<div class="contcolumn col-xs-12 col-sm-5 col-md-5">   
     <h3><a href="<?=ROOT_URL?>?p=blog&amp;a=post&amp;id=<?=$oPost->id?>"><?=htmlspecialchars($oPost->title)?></a></h3>
         <p><?=nl2br(htmlspecialchars(mb_strimwidth($oPost->body, 0, 200, '...')))?></p>
         

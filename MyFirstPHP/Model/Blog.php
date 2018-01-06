@@ -129,6 +129,15 @@ class Blog
       
         
     }
+    
+    
+    public function addanswer(array $aData, $currentUserId)
+    {
+        $oStmt = $this->oDb->prepare('INSERT INTO answers (Answer, UserId, DateCreated,DateUpdated,AnswerXML,PostId,IsConsultationRequired) VALUES(:Answer, :UserId, :DateCreated,:DateUpdated,:AnswerXML,:PostId,:IsConsultationRequired)');
+        return $oStmt->execute($aData);
+        
+    }
+    
     public function userTopics($currentUserId)
     {
         $sql = 'CALL GetUserTopics(:currentUserId)';
@@ -143,6 +152,32 @@ class Blog
         $oStmt->execute();
         return $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
+    
+    public function getAnswers($iId)
+    {
+         $sql = 'CALL GetAnswersById(:Id)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':Id', $iId, \PDO::PARAM_INT);
+       $oStmt->execute();
+        // execute the stored procedure
+      return  $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+    
+    public function getAnswerDetail($iId)
+    {
+         $sql = 'CALL GetAnswerDetail(:Id)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':Id', $iId, \PDO::PARAM_INT);
+       $oStmt->execute();
+        // execute the stored procedure
+      return  $oStmt->fetch(\PDO::FETCH_OBJ);
+    }
+    
     public function getById($iId)
     {
          $sql = 'CALL GetQuestionById(:questionId)';

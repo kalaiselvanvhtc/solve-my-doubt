@@ -22,6 +22,11 @@ var degreeValue='';
          $(".askquestion").removeClass("hidden");
          
      }
+     
+  $("#add_answer").click(function(){
+      $("#postAnswerCont").show();
+      $(this).hide();
+  }); 
    $('#field').selectpicker();
    $('#field').on('hidden.bs.select', function (e) {
        

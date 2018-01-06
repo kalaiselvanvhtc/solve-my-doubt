@@ -34,6 +34,7 @@
 <body>
     
 <?php require 'inc/header.php' ?>
+ 
 <div class="container">
 	<div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 moduleContainer-normalView">    
@@ -42,7 +43,7 @@
     <p class="error">The post can't be be found!</p>
 <?php else: ?>
     <div class="breadcrumb">
-        <a href="/" class="breadcrumbLink"><span>Home</span></a>><a href="/" class="breadcrumbLink"><span>Question</span></a>
+        <a href="/MyFirstPHP/?p=blog&a=all" class="breadcrumbLink"><span>Home</span></a>><a href="/" class="breadcrumbLink"><span>Question</span></a>
          <?php
             $oPost = $this->oPost;
             require 'inc/control_buttons.php';
@@ -53,7 +54,7 @@
  <h3 ><?=htmlspecialchars($this->oPost->title)?></h3>     
 <div class="blog-author">     <div class="blog-author-bio">         <div class="blog-author-all">     
  <div class="pull-left">                 <span class="blog-comments-author">                  
- By <a rel=" noopener noreferrer" href="/activity-feed/userid/53" class="SocialLink"><?=$this->oPost->AuthorName?></a>                 </span>     
+ By <a rel=" noopener noreferrer" href="#" class="SocialLink"><?=$this->oPost->AuthorName?></a>                 </span>     
  </div>             <div class="pull-right">                 <span><?=$this->oPost->createdDate?></span>       
  </div>         </div>         </div> </div>  </div>  
  <div class="detail-main-container">
@@ -69,8 +70,47 @@
 
 <?php endif ?>
  </div>
+    <div class="row">
+         
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            
+<?php include('answerdata.php'); ?>
+            
+        </div></div>
+    
+    
 	</div>
+               <form  method="post"  action="">
+            <div style='display: none' class='col-xs-12 col-sm-12 col-md-12 moduleContainer-normalView' id='postAnswerCont'>
+                      <?php if($this->oPost->createdbyuserid!=(int)$_SESSION['userId']): ?>                    
+
+                <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10 marginT5">
+
+        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+           <input type="checkbox" id="AllowConsultation" name="AllowConsultation" value='allowconsult' />
+           <label for="AllowConsultation">Also offer 1-1 consultation</label>
+                       </div>  
+    </div></div> 
+                <?php endif; ?>
+
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10">
+       <div class="form-group col-xs-12 col-sm-10 col-md-10">
+                         <textarea name="answerbody" id="answerbody" rows="5" cols="35" class="form-control" placeholder="Answer" required="required"></textarea>
+                       </div>  
+       
+    </div></div>
+             <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingL0 paddingR0">
+                            <input class="btn btn-block bt-login btn-affermative" name="submit_answer" id="submit_answer" type="submit" value="Submit" />
+                        </div>
+            </div>  
+                   </form>
+     <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingL0 paddingR0">
+                            <input class="btn btn-block bt-login btn-affermative" name="add_answer" id="add_answer" type="button" value="Answer this question .." />
+                        </div>
 </div></div>
+        
  <?php require 'inc/footer.php' ?>
      
 

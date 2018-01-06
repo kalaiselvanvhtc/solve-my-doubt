@@ -608,3 +608,12 @@ border: medium none;
 background: transparent none repeat scroll 0% 0%;
 color: rgb(0, 137, 197);
 }
+#answerbody{
+    border: 0px none transparent;
+background: transparent none repeat scroll 0% 0%;
+box-shadow: none;
+}
+#postAnswerCont
+{
+    border: 1px solid lightgray;
+}

@@ -57,9 +57,41 @@ class Blog
         
          if(!$this->isLogged())
               header('Location: ' . ROOT_URL);
+          if (!empty($_POST['submit_answer']))
+        {
+            if (isset($_POST['answerbody'])) // Allow a maximum of 50 characters
+            {
+                $isAllowConsult = true;
+                if(isset($_POST['AllowConsultation']) && $_POST['AllowConsultation']==='allowconsult')
+                    $isAllowConsult = true;
+                else
+                    $isAllowConsult=false;
+                $aData = array('Answer' => $_POST['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $this->_iId, 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>(int)$_SESSION['userId']);
+                if ($this->oModel->addanswer($aData,(int)$_SESSION['userId']))
+                {
+                    //
+                    
+                }
+                else
+                    $this->oUtil->sErrMsg = 'Whoops! An error has occurred! Please try again later.';
+            }
+            else
+            {
+                $this->oUtil->sErrMsg = 'All fields are required and the title cannot exceed 50 characters.';
+            }
+           
+        }
         $this->oUtil->oPost = $this->oModel->getById($this->_iId); // Get the data of the post
-
+        $this->oUtil->oPosts = $this->oModel->getAnswers($this->_iId);
         $this->oUtil->getView('post');
+    }
+    
+    public function answerpost()
+    {
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
+        $this->oUtil->oPost = $this->oModel->getAnswerDetail($this->_iId); // Get the data of the post
+        $this->oUtil->getView('answerpost');
     }
 
     public function notFound()
@@ -108,6 +140,47 @@ class Blog
         }
 
         $this->oUtil->getView('add_post');
+        }
+
+catch (Exception $e) {
+  //display custom message
+   $this->oUtil->sErrMsg = $e->getMessage();
+}
+    }
+    
+     public function addanswer()
+    {
+        try {
+       
+         if(!$this->isLogged())
+              header('Location: ' . ROOT_URL);
+ 
+        if (!empty($_POST['submit_answer']))
+        {
+            if (isset($_POST['answerbody'])) // Allow a maximum of 50 characters
+            {
+                $isAllowConsult = true;
+                if(isset($_POST['AllowConsultation']) && $_POST['AllowConsultation']==='allowconsult')
+                    $isAllowConsult = true;
+                else
+                    $isAllowConsult=false;
+                $aData = array('Answer' => $_POST['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $this->_iId, 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>(int)$_SESSION['userId']);
+
+                if ($this->oModel->addanswer($aData,(int)$_SESSION['userId']))
+                {
+                    //
+                    
+                }
+                else
+                    $this->oUtil->sErrMsg = 'Whoops! An error has occurred! Please try again later.';
+            }
+            else
+            {
+                $this->oUtil->sErrMsg = 'All fields are required and the title cannot exceed 50 characters.';
+            }
+           
+        }
+
         }
 
 catch (Exception $e) {
@@ -224,6 +297,18 @@ catch (Exception $e) {
      $this->oUtil->getView('mobileAutoCompleteApi');
     }
     
+    public function mobileanswers()
+    {
+     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->getAnswers($_GET['id']));
+     $this->oUtil->getView('mobileAutoCompleteApi');
+    }
+    
+     public function mobileanswerpost()
+    {
+     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->getAnswerDetail($_GET['id']));
+     $this->oUtil->getView('mobileAutoCompleteApi');
+    }
+    
      public function mobileadd()
     {
             if (isset($_GET['title'], $_GET['body']) && mb_strlen($_GET['title']) <= 50) // Allow a maximum of 50 characters
@@ -245,6 +330,48 @@ catch (Exception $e) {
                $this->oUtil->oPosts = array(200,"Error","Error in validation");
                 $this->oUtil->getView('mobileAutoCompleteApi');
             }       
+    }
+    
+      public function mobileaddanswer()
+    {
+        try {
+       
+                   if (isset($_GET['answerbody'])) // Allow a maximum of 50 characters
+            {
+                $isAllowConsult = true;
+                if(isset($_GET['AllowConsultation']) && $_GET['AllowConsultation']==='allowconsult')
+                    $isAllowConsult = true;
+                else
+                    $isAllowConsult=false;
+                $aData = array('Answer' => $_GET['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $_GET['postId'], 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>$_GET['userId']);
+
+                if ($this->oModel->addanswer($aData,(int)$_GET['userId']))
+                {
+                    //
+                    
+                }
+                else
+                    {
+                    $this->oUtil->oPosts = array(200,"Error","Error in insert");
+                $this->oUtil->getView('mobileAutoCompleteApi');
+                }
+            }
+            else
+            {
+               $this->oUtil->oPosts = array(200,"Error","Error in validation");
+                $this->oUtil->getView('mobileAutoCompleteApi');
+            }   
+           
+        }
+
+        
+
+catch (Exception $e) {
+  //display custom message
+$this->oUtil->oPosts = array(500,"Error",$e);
+                $this->oUtil->getView('mobileAutoCompleteApi');
+                
+}
     }
     
     protected function isLogged()
