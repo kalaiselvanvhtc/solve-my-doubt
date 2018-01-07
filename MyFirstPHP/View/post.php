@@ -88,7 +88,7 @@
     <div class="col-xs-12 col-sm-12 col-md-10 marginT5">
 
         <div class="form-group col-xs-12 col-sm-6 col-md-6">
-           <input type="checkbox" id="AllowConsultation" name="AllowConsultation" value='allowconsult' />
+           <input type="checkbox" id="AllowConsultation" name="AllowConsultation" checked value='allowconsult' />
            <label for="AllowConsultation">Also offer 1-1 consultation</label>
                        </div>  
     </div></div> 
@@ -106,7 +106,7 @@
                         </div>
             </div>  
                    </form>
-     <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingL0 paddingR0">
+     <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingL0 paddingR0 marginT20">
                             <input class="btn btn-block bt-login btn-affermative" name="add_answer" id="add_answer" type="button" value="Answer this question .." />
                         </div>
 </div></div>

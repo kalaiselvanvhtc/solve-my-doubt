@@ -624,3 +624,25 @@ box-shadow: none;
 {
     border: 1px solid lightgray;
 }
+.consult_img
+{
+    float:right;
+    width:50px;
+}
+a.content_answer,a.content_answer:focus, a.content_answer:hover,a.content_answer:visited
+{
+    text-decoration: none !important;
+    color:#333 !important;
+}
+.borderbottom
+{
+    border-bottom: 1px solid lightgray;
+}
+.padding20
+{
+    padding:20px;
+}
+.container
+{
+    margin-bottom: 50px;
+}
