@@ -369,6 +369,13 @@ border-radius: 0px;
     border: 0 !important;
 }
 
+
+.btn-affermativeOne {
+    background-color: #0089c5 !important;
+    color: #FFF !important;
+    border: 0 !important;
+}
+
 .paddingL0
 {
     padding-left: 0px !important

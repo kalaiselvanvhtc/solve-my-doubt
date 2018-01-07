@@ -66,7 +66,7 @@ class Blog
                     $isAllowConsult = true;
                 else
                     $isAllowConsult=false;
-                $aData = array('Answer' => $_POST['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $this->_iId, 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>(int)$_SESSION['userId']);
+                $aData = array('Answer' => $_POST['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $this->_iId, 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>(int)$_SESSION['userId'],'AcceptedUserId'=>-1,'IsUserAcceptConsult'=>false);
                 if ($this->oModel->addanswer($aData,(int)$_SESSION['userId']))
                 {
                     //
@@ -112,7 +112,18 @@ class Blog
         $this->oUtil->getView('index');
     }
 
+    public function acceptAnswer()
+    {
+     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->acceptAnswer((int)$_GET['id'],(int)$_SESSION['userId']));
+     $this->oUtil->getView('mobileAutoCompleteApi');
+    }
 
+    public function mobileacceptAnswer()
+    {
+     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->acceptAnswer((int)$_GET['id'],(int)$_GET['userId']));
+     $this->oUtil->getView('mobileAutoCompleteApi');
+    }
+    
     public function add()
     {
         try {
@@ -164,7 +175,7 @@ catch (Exception $e) {
                     $isAllowConsult = true;
                 else
                     $isAllowConsult=false;
-                $aData = array('Answer' => $_POST['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $this->_iId, 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>(int)$_SESSION['userId']);
+                $aData = array('Answer' => $_POST['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $this->_iId, 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>(int)$_SESSION['userId'],'AcceptedUserId'=>-1,'IsUserAcceptConsult'=>false);
 
                 if ($this->oModel->addanswer($aData,(int)$_SESSION['userId']))
                 {
@@ -309,6 +320,7 @@ catch (Exception $e) {
      $this->oUtil->getView('mobileAutoCompleteApi');
     }
     
+    
      public function mobileadd()
     {
             if (isset($_GET['title'], $_GET['body']) && mb_strlen($_GET['title']) <= 50) // Allow a maximum of 50 characters
@@ -332,6 +344,8 @@ catch (Exception $e) {
             }       
     }
     
+    
+    
       public function mobileaddanswer()
     {
         try {
@@ -343,11 +357,12 @@ catch (Exception $e) {
                     $isAllowConsult = true;
                 else
                     $isAllowConsult=false;
-                $aData = array('Answer' => $_GET['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $_GET['postId'], 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>$_GET['userId']);
+                $aData = array('Answer' => $_GET['answerbody'],'IsConsultationRequired'=>$isAllowConsult, 'PostId' => $_GET['postId'], 'DateCreated' => date('Y-m-d H:i:s'),'DateUpdated' => date('Y-m-d H:i:s'),'AnswerXML' =>'','UserId'=>$_GET['userId'],'AcceptedUserId'=>-1,'IsUserAcceptConsult'=>false);
 
                 if ($this->oModel->addanswer($aData,(int)$_GET['userId']))
                 {
-                    //
+                    $this->oUtil->oPosts = array(200,"Success","Added answer");
+                $this->oUtil->getView('mobileAutoCompleteApi');
                     
                 }
                 else

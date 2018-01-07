@@ -48,6 +48,27 @@ var degreeValue='';
 		      		});
   
 });
+
+$('#accept_consult').click(function (e) {
+       
+  $.ajax({
+		      			url : 'api.php?p=Blog&a=acceptAnswer',
+		      			dataType: "json",
+						data: {
+						   id: getParameterByName('id')
+						},
+						 success: function( data ) {
+                                                     if(data.data.IsUserAcceptConsult=="1")
+                                                     {
+                                                    $('#accept_consult').removeClass("btn-affermative");
+                                                    $('#accept_consult').removeClass("btn-affermativeOne");
+                                                    $('#accept_consult').val("Accepted");
+                                                }
+						}
+		      		});
+  
+});
+
 $('.bootstrap-select').click(function (e) {
     if($('#field').val()=='')
        $('#field').select(); 
@@ -240,3 +261,13 @@ var specId_array = new Array();
             }
         });
     });
+    
+    function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}

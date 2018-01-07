@@ -57,7 +57,7 @@
      </div>
          
    
-      <?php if($this->oPost->IsConsultation>0 && $this->oPost->UserId!=(int)$_SESSION['userId']): ?>                    
+      <?php if($this->oPost->IsConsultation>0 && ((int)$this->oPost->UserId===(int)$_SESSION['userId'] || (int)$this->oPost->DoubterUserId===(int)$_SESSION['userId'])): ?>                    
 	
             <div class="col-xs-12 col-sm-12 col-md-10 moduleContainer-normalView"> 
                 <label>Suggested consultation times:</label>
@@ -67,9 +67,16 @@
                         Sep 27(Wed) : 6:30(PM)         
                     </span>
                     </div>  
+
+                    
                     <div class="paddingL0 col-xs-12 col-sm-12 col-md-2">
+                        <?php if((int)$this->oPost->IsUserAcceptConsult==0): ?>                    
                      <input class="btn btn-block bt-login btn-affermative" name="accept_consult" id="accept_consult" type="button" value="Accept" />
-                        
+                        <?php endif; ?>
+                         <?php if((int)$this->oPost->IsUserAcceptConsult>0): ?>                    
+                     <input class="btn btn-block bt-login btn-affermativeOne" name="accepted_consult" id="accepted_consult" type="button" value="Accepted" />
+                        <?php endif; ?>
+
                     </div>
                 </div>
             
