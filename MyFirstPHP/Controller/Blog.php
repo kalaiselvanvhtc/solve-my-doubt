@@ -147,7 +147,7 @@ $session = $opentok->createSession();
 $sessionId = $session->getSessionId();
 $_SESSION['sessionId'] = $sessionId;
 // Generate a Token by calling the method on the Session (returned from createSession)
-$token = $session->generateToken();
+$token = $session->generateToken(array('expireTime' => time()+(7 * 24 * 60 * 60)));
 $_SESSION['token'] = $token;
 $this->oModel->AddUpdateConsultation($postId,$answerId,$doubterUserId,$userId,$sessionId,$token); // Get the data of the post
   
@@ -380,7 +380,43 @@ catch (Exception $e) {
     
      public function mobileanswerpost()
     {
-     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->getAnswerDetail($_GET['id']));
+     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->getAnswerDetail($_GET['id'],$_GET['userId']));
+     $this->oUtil->getView('mobileAutoCompleteApi');
+    }
+    
+    public function mobilegetsessiontoken()
+    {
+         $sessionToken = $this->oModel->getSessoinToken($_GET['id'],$_GET['userId']); // Get the data of the post
+           $sessionId = '';
+        $tokenId = '';
+          
+            foreach ($sessionToken as $value) {
+         $sessionId = $value->sessionId;
+         $tokenId = $value->tokenId;
+         }
+        
+            if($sessionId=='')
+            {
+                 
+            $opentok = new OpenTok('46041242', 'e089584ff34595ea4885d6174280b44cb1ac7a94');
+         
+        // Create a session that attempts to use peer-to-peer streaming:
+       // $sessionOptions = array(
+    //'archiveMode' => ArchiveMode::ALWAYS,
+   // 'mediaMode' => MediaMode::ROUTED
+//);
+$session = $opentok->createSession();
+
+
+// Store this sessionId in the database for later use
+$sessionId = $session->getSessionId();
+// Generate a Token by calling the method on the Session (returned from createSession)
+$token = $session->generateToken(array('expireTime' => time()+(7 * 24 * 60 * 60)));
+$this->oModel->AddUpdateConsultation($postId,$answerId,$doubterUserId,$userId,$sessionId,$token); // Get the data of the post
+}
+          
+        
+     $this->oUtil->oPosts = array(200,"Answers",$this->oModel->getAnswerDetail($_GET['id'],$_GET['userId']));
      $this->oUtil->getView('mobileAutoCompleteApi');
     }
     
