@@ -21,7 +21,9 @@
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		
+		<link href="static/app.css" rel="stylesheet" type="text/css">
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+    
                 <link href="static/style.css?v=1" rel="stylesheet" type="text/css"/>
 		
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -70,15 +72,21 @@
 
                     
                     <div class="paddingL0 col-xs-12 col-sm-12 col-md-2">
-                        <?php if((int)$this->oPost->IsUserAcceptConsult==0): ?>                    
+                        <?php if((int)$this->oPost->IsUserAcceptConsult==0 && (int)$this->oPost->DoubterUserId===(int)$_SESSION['userId']): ?>                    
                      <input class="btn btn-block bt-login btn-affermative" name="accept_consult" id="accept_consult" type="button" value="Accept" />
                         <?php endif; ?>
                          <?php if((int)$this->oPost->IsUserAcceptConsult>0): ?>                    
                      <input class="btn btn-block bt-login btn-affermativeOne" name="accepted_consult" id="accepted_consult" type="button" value="Accepted" />
- <iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=5264225b-e7bb-49ab-ba4e-316e7837204a&room=DEFAULT_ROOM&iframe=true" width=800 height=640 allow="microphone; camera" ></iframe> 
-                        <?php endif; ?>
+                     <input class="btn btn-block bt-login btn-affermativeOne" style="display:none" name="disconnectSession" id="disconnectSession" type="button" value="End Session" />
+                     <input class="btn btn-block bt-login btn-affermativeOne" style="display:none"  name="startSession" id="startSession" type="button" value="Start Session" />
+                     <div  id="videos">
+        <div id="subscriberId"></div>
+        <div id="publisherId"></div>
+    </div>
+ <?php endif; ?>
 
                     </div>
+          
                 </div>
             
             
@@ -89,7 +97,9 @@
         
 	</div>
 </div>
-
+    <input type="hidden" name="apiKeyhdn" id="apiKeyhdn" value="<?= $_SESSION['apiKey'] ?>" />
+              <input type="hidden" name="sessionIdhdn" id="sessionIdhdn" value="<?= $_SESSION['sessionId'] ?>"/>
+               <input type="hidden" name="tokenhdn" id="tokenhdn" value="<?= $_SESSION['token'] ?>"/>
 </div>
         
  <?php require 'inc/footer.php' ?>
@@ -107,7 +117,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
         <script src="static/jquery.autocomplete.multiselect.js"></script>
          <script src="static/default.js"></script>
-          
+                        <script type="text/javascript" src="static/app.js"></script>
     
     
     

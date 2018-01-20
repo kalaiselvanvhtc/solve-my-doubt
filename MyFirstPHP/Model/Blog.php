@@ -166,16 +166,46 @@ class Blog
     }
     
     
-    public function getAnswerDetail($iId)
+    
+    
+    public function getAnswerDetail($iId,$currentUserId)
     {
-         $sql = 'CALL GetAnswerDetail(:Id)';
+         $sql = 'CALL GetAnswerDetail(:Id,:currentUserId)';
         // prepare for execution of the stored procedure
         $oStmt = $this->oDb->prepare($sql);
         // pass value to the command
         $oStmt->bindParam(':Id', $iId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
        $oStmt->execute();
         // execute the stored procedure
       return  $oStmt->fetch(\PDO::FETCH_OBJ);
+    }
+    
+    public function getAnswerDetailone($iId,$currentUserId)
+    {
+         $sql = 'CALL GetAnswerDetail(:Id,:currentUserId)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':Id', $iId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
+       $oStmt->execute();
+        // execute the stored procedure
+      return  $oStmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+    
+    
+    public function getSessoinToken($iId,$currentUserId)
+    {
+         $sql = 'CALL getSessoinToken(:Id,:currentUserId)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':Id', $iId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
+        $oStmt->execute();
+        // execute the stored procedure
+      return  $oStmt->fetchAll(\PDO::FETCH_OBJ);
     }
     
     public function acceptAnswer($iId,$userId)
@@ -189,6 +219,22 @@ class Blog
 
         $oStmt->execute();
      return  $oStmt->fetch(\PDO::FETCH_OBJ);
+    }
+    
+    public function AddUpdateConsultation($_postId,$_answerId,$_postAuthorId,$_answerAuthorId,$_sessionId,$_tokenId)
+    {
+         $sql = 'CALL AddConsultation(:_postId,:_answerId,:_postAuthorId,:_answerAuthorId,:_sessionId,:_tokenId)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+        // pass value to the command
+        $oStmt->bindParam(':_postId', $_postId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':_answerId', $_answerId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':_postAuthorId', $_postAuthorId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':_answerAuthorId', $_answerAuthorId, \PDO::PARAM_INT);
+        $oStmt->bindParam(':_sessionId', $_sessionId, \PDO::PARAM_STR);
+        $oStmt->bindParam(':_tokenId', $_tokenId, \PDO::PARAM_STR);
+       return $oStmt->execute();
+     
     }
     
     public function getById($iId)

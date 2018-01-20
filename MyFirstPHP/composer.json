@@ -1,0 +1,5 @@
+{
+    "require": {
+        "opentok/opentok": "^3.1"
+    }
+}

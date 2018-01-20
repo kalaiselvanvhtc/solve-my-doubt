@@ -7,7 +7,13 @@
  */
 
 namespace TestProject\Controller;
+require ROOT_PATH . '/vendor/autoload.php';
 
+use OpenTok\OpenTok;
+use OpenTok\MediaMode;
+use OpenTok\ArchiveMode;
+use OpenTok\Session;
+use OpenTok\Role;
 class Blog
 {
     const MAX_POSTS = 10;
@@ -90,8 +96,66 @@ class Blog
     {
          if(!$this->isLogged())
               header('Location: ' . ROOT_URL);
-        $this->oUtil->oPost = $this->oModel->getAnswerDetail($this->_iId); // Get the data of the post
-        $this->oUtil->getView('answerpost');
+        $this->oUtil->oPost = $this->oModel->getAnswerDetail($this->_iId,$_SESSION['userId']); // Get the data of the post
+        $answers = $this->oModel->getAnswerDetailone($this->_iId,$_SESSION['userId']); // Get the data of the post
+        $isUserAccept = true;
+        $userId = 0;
+        $doubterUserId = 0;
+        $postId=0;
+        $answerId=0;
+         foreach ($answers as $value) {
+         $isUserAccept = (int)$value->IsUserAcceptConsult>0;
+         $userId = (int)$value->UserId;
+           $doubterUserId = (int)$value->DoubterUserId;
+           $postId=(int)$value->PostId;
+        $answerId=(int)$value->AnswerId;
+         }
+        
+          
+          
+        if($isUserAccept==true && ($userId==(int)$_SESSION['userId'] || $doubterUserId==(int)$_SESSION['userId']))
+        {
+            $_SESSION['apiKey'] = '46041242';
+            $sessionToken = $this->oModel->getSessoinToken($this->_iId,$_SESSION['userId']); // Get the data of the post
+           $sessionId = '';
+        $tokenId = '';
+          
+            foreach ($sessionToken as $value) {
+         $sessionId = $value->sessionId;
+         $tokenId = $value->tokenId;
+         }
+        
+            if($sessionId!='')
+            {  
+            $_SESSION['sessionId'] = $sessionId;
+            $_SESSION['token'] = $tokenId;
+            }
+            else
+            {
+                 
+            $opentok = new OpenTok('46041242', 'e089584ff34595ea4885d6174280b44cb1ac7a94');
+         
+        // Create a session that attempts to use peer-to-peer streaming:
+       // $sessionOptions = array(
+    //'archiveMode' => ArchiveMode::ALWAYS,
+   // 'mediaMode' => MediaMode::ROUTED
+//);
+$session = $opentok->createSession();
+
+
+// Store this sessionId in the database for later use
+$sessionId = $session->getSessionId();
+$_SESSION['sessionId'] = $sessionId;
+// Generate a Token by calling the method on the Session (returned from createSession)
+$token = $session->generateToken();
+$_SESSION['token'] = $token;
+$this->oModel->AddUpdateConsultation($postId,$answerId,$doubterUserId,$userId,$sessionId,$token); // Get the data of the post
+  
+}
+          
+        } 
+$this->oUtil->getView('answerpost'); 
+     
     }
 
     public function notFound()
