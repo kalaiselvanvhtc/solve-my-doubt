@@ -115,11 +115,11 @@ class Blog
         $tokenId=$value->tokenId;
          }
         
-          
+          $_SESSION['apiKey'] = '46041242';
           
         if($sessionId=='' && $isUserAccept==true && ($userId==(int)$_SESSION['userId'] || $doubterUserId==(int)$_SESSION['userId']))
         {
-            $_SESSION['apiKey'] = '46041242';
+            
             $sessionToken = $this->oModel->getSessoinToken($this->_iId,$_SESSION['userId']); // Get the data of the post
            $sessionId = '';
         $tokenId = '';
