@@ -103,17 +103,21 @@ class Blog
         $doubterUserId = 0;
         $postId=0;
         $answerId=0;
+        $sessionId='';
+        $tokenId='';
          foreach ($answers as $value) {
          $isUserAccept = (int)$value->IsUserAcceptConsult>0;
          $userId = (int)$value->UserId;
            $doubterUserId = (int)$value->DoubterUserId;
            $postId=(int)$value->PostId;
         $answerId=(int)$value->AnswerId;
+        $sessionId=$value->sessionId;
+        $tokenId=$value->tokenId;
          }
         
           
           
-        if($isUserAccept==true && ($userId==(int)$_SESSION['userId'] || $doubterUserId==(int)$_SESSION['userId']))
+        if($sessionId=='' && $isUserAccept==true && ($userId==(int)$_SESSION['userId'] || $doubterUserId==(int)$_SESSION['userId']))
         {
             $_SESSION['apiKey'] = '46041242';
             $sessionToken = $this->oModel->getSessoinToken($this->_iId,$_SESSION['userId']); // Get the data of the post
@@ -150,10 +154,15 @@ $_SESSION['sessionId'] = $sessionId;
 $token = $session->generateToken(array('expireTime' => time()+(7 * 24 * 60 * 60)));
 $_SESSION['token'] = $token;
 $this->oModel->AddUpdateConsultation($postId,$answerId,$doubterUserId,$userId,$sessionId,$token); // Get the data of the post
-  
 }
+
           
         } 
+        else
+{
+    $_SESSION['sessionId'] = $sessionId;
+    $_SESSION['token'] = $tokenId;
+}
 $this->oUtil->getView('answerpost'); 
      
     }

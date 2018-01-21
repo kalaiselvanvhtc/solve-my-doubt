@@ -51,16 +51,17 @@
     </div>
     <div class="blog-detail-container">
     <div class="title-container">  
- <h3 ><?=htmlspecialchars($this->oPost->title)?></h3>     
+ <h3 >  <?=nl2br(htmlspecialchars($this->oPost->body))?></h3>     
 <div class="blog-author">     <div class="blog-author-bio">         <div class="blog-author-all">     
  <div class="pull-left">                 <span class="blog-comments-author">                  
  By <a rel=" noopener noreferrer" href="#" class="SocialLink"><?=$this->oPost->AuthorName?></a>                 </span>     
  </div>             <div class="pull-right">                 <span><?=$this->oPost->createdDate?></span>       
  </div>         </div>         </div> </div>  </div>  
  <div class="detail-main-container">
-     <?=nl2br(htmlspecialchars($this->oPost->body))?>
+   
      </div>
-          <div class="pull-left"> <ul class="list-row-tags">
+          <div class="pull-left tag"> <ul class="list-row-tags">
+            <li><a href="#"><?=htmlspecialchars($this->oPost->title)?></a></li>
             <?php foreach (explode(',', $this->oPost->Tag) as $tag): ?>
             <li><a href="#"><?=$tag?></a></li>
     <?php endforeach ?>
@@ -106,7 +107,7 @@
                         </div>
             </div>  
                    </form>
-     <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingL0 paddingR0 marginT20">
+     <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingR0 marginT20">
                             <input class="btn btn-block bt-login btn-affermative" name="add_answer" id="add_answer" type="button" value="Answer this question .." />
                         </div>
 </div></div>

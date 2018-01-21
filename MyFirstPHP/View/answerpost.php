@@ -62,21 +62,25 @@
       <?php if($this->oPost->IsConsultation>0 && ((int)$this->oPost->UserId===(int)$_SESSION['userId'] || (int)$this->oPost->DoubterUserId===(int)$_SESSION['userId'])): ?>                    
 	
             <div class="col-xs-12 col-sm-12 col-md-10 moduleContainer-normalView"> 
-                <label>Suggested consultation times:</label>
                 <div class="paddingL0 col-xs-12 col-sm-12 col-md-10">
-                    <div class="paddingL0 col-xs-12 col-sm-12 col-md-3 marginT5">
+                    <div class="paddingL0 col-xs-12 col-sm-12 col-md-3 marginT5 hidden">
                         <span>
                         Sep 27(Wed) : 6:30(PM)         
                     </span>
                     </div>  
 
                     
-                    <div class="paddingL0 col-xs-12 col-sm-12 col-md-2">
+                    <div class="paddingL0 col-xs-12 col-sm-12 col-md-3">
                         <?php if((int)$this->oPost->IsUserAcceptConsult==0 && (int)$this->oPost->DoubterUserId===(int)$_SESSION['userId']): ?>                    
-                     <input class="btn btn-block bt-login btn-affermative" name="accept_consult" id="accept_consult" type="button" value="Accept" />
+                     <input class="btn btn-block bt-login btn-affermative" name="accept_consult" id="accept_consult" type="button" value="Request consultation" />
                         <?php endif; ?>
-                         <?php if((int)$this->oPost->IsUserAcceptConsult>0): ?>                    
-                     <input class="btn btn-block bt-login btn-affermativeOne" name="accepted_consult" id="accepted_consult" type="button" value="Accepted" />
+                         <?php if((int)$this->oPost->IsUserAcceptConsult>0): ?>      
+                     <?php if((int)$this->oPost->DoubterUserId===(int)$_SESSION['userId']): ?>      
+                     <input class="btn btn-block bt-login btn-affermativeOne" name="accepted_consult" id="accepted_consult" type="button" value="Request consultation" />
+                     <?php endif; ?>
+                     <?php if((int)$this->oPost->UserId===(int)$_SESSION['userId']): ?>      
+                     <input class="btn btn-block bt-login btn-affermativeOne" name="solver_consult" id="solver_consult" type="button" value="Request consultation" />
+                     <?php endif; ?>
                      <input class="btn btn-block bt-login btn-affermativeOne" style="display:none" name="disconnectSession" id="disconnectSession" type="button" value="End Session" />
                      <input class="btn btn-block bt-login btn-affermativeOne" style="display:none"  name="startSession" id="startSession" type="button" value="Start Session" />
                      <div  id="videos">
@@ -101,7 +105,20 @@
               <input type="hidden" name="sessionIdhdn" id="sessionIdhdn" value="<?= $_SESSION['sessionId'] ?>"/>
                <input type="hidden" name="tokenhdn" id="tokenhdn" value="<?= $_SESSION['token'] ?>"/>
 </div>
-        
+      
+<div id="Doubtermodal" class="modal fade" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+            <div class="modal-content col-xs-12 col-sm-12 col-md-10">  
+                <div class="modal-body marginT20">
+                    <span class="modalmsg">Please wait while we connect to the solver</span>
+                </div>
+               <div class="modal-footer">
+                            <button class="btn btn-block bt-login btn-affermative" style="width: 30%;" data-toggle="modal" data-dismiss="modal" type="button">Ok</button>
+                        </div>
+		
+            </div>
+        </div>     
+ </div>     
  <?php require 'inc/footer.php' ?>
      
 

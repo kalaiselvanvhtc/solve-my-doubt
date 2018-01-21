@@ -22,8 +22,13 @@ $("#disconnectSession").click(function() {
 });
  
 
-session = OT.initSession(apiKey, sessionId);
+
 var connectionCount = 0;
+
+
+function connect() {
+  // Replace apiKey and sessionId with your own values:
+  session = OT.initSession(apiKey, sessionId);
 // Replace with the replacement element ID:
 publisher = OT.initPublisher(publisherId);
 publisher.on({
@@ -35,39 +40,8 @@ publisher.on({
       + event.reason);
   }
 });
-session.on('streamCreated', function(event) {
-  var subscriberProperties = {insertMode: 'append'};
-   subscriber = session.subscribe(event.stream,
-    'subscriberId',
-    subscriberProperties,
-    function (error) {
-      if (error) {
-        alert("subscribe: "+error);
-      } else {
-        alert('Subscriber added.');
-      }
-  });
-  
-subscriber.on({
-  disconnected: function() {
-        alert("subscriber disconnected");
-        document.getElementById('disconnectSession').style.display = 'none';
-  },
-  connected: function() {
-    alert("subscriber connected");
-    document.getElementById('disconnectSession').style.display = 'block';
-  },
-  destroyed: function() {
-    alert("subscriber destroyed");
-    document.getElementById('disconnectSession').style.display = 'none';
-  }
-  });
-});
 
 
-function connect() {
-  // Replace apiKey and sessionId with your own values:
-  
   session.on({
     connectionCreated: function (event) {
       connectionCount++;
@@ -103,5 +77,67 @@ function connect() {
   });
 }
 
-connect();
+$('#accept_consult').click(function (e) {
+       
+  $.ajax({
+		      			url : 'api.php?p=Blog&a=acceptAnswer',
+		      			dataType: "json",
+						data: {
+						   id: getParameterByName('id')
+						},
+						 success: function( data ) {
+                                                     if(data.data.IsUserAcceptConsult=="1")
+                                                     {
+                                                    $('#accept_consult').removeClass("btn-affermative");
+                                                    $('#accept_consult').removeClass("btn-affermativeOne");
+                                                    $('#accept_consult').val("Request consultation");
+                                                     $("#Doubtermodal").modal();
+     
+                                                }
+						}
+		      		});
+  
+});
+$("#accepted_consult").click(function(){
+    $("#Doubtermodal").modal();
+     // Replace apiKey and sessionId with your own values:
+  session = OT.initSession(apiKey, sessionId);
+   session.connect(token, function(error) {
+    if (error) {
+      alert('Unable to connect: ', error.message);
+    } 
+  });
+  
+  session.on('streamCreated', function(event) {
+  var subscriberProperties = {insertMode: 'append'};
+   subscriber = session.subscribe(event.stream,
+    'subscriberId',
+    subscriberProperties,
+    function (error) {
+      if (error) {
+        alert("subscribe: "+error);
+      } else {
+        alert('Subscriber added.');
+      }
+  });
+  
+subscriber.on({
+  disconnected: function() {
+        alert("subscriber disconnected");
+        document.getElementById('disconnectSession').style.display = 'none';
+  },
+  connected: function() {
+    alert("subscriber connected");
+    document.getElementById('disconnectSession').style.display = 'block';
+  },
+  destroyed: function() {
+    alert("subscriber destroyed");
+    document.getElementById('disconnectSession').style.display = 'none';
+  }
+  });
+});
+});
+$("#solver_consult").click(function(){
+  connect();
+});
 }

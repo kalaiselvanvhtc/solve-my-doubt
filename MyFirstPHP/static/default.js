@@ -49,25 +49,6 @@ var degreeValue='';
   
 });
 
-$('#accept_consult').click(function (e) {
-       
-  $.ajax({
-		      			url : 'api.php?p=Blog&a=acceptAnswer',
-		      			dataType: "json",
-						data: {
-						   id: getParameterByName('id')
-						},
-						 success: function( data ) {
-                                                     if(data.data.IsUserAcceptConsult=="1")
-                                                     {
-                                                    $('#accept_consult').removeClass("btn-affermative");
-                                                    $('#accept_consult').removeClass("btn-affermativeOne");
-                                                    $('#accept_consult').val("Accepted");
-                                                }
-						}
-		      		});
-  
-});
 
 $('.bootstrap-select').click(function (e) {
     if($('#field').val()=='')
@@ -136,28 +117,26 @@ var specId_array = new Array();
 		      		});
 		      	}
                 });
+                var availableTopics = [];
+                $.getJSON(window.location.origin + '/MyFirstPHP/api.php?p=Blog&a=autoComplete&type=userTopics', function (data) {
+            for (var i = 0; i < data.length; i++) {
+                availableTopics.push(data[i].Name);
+            }
+			});
+            $("#title").bind("keydown", function (event) {
+           if (event.keyCode === $.ui.keyCode.TAB &&
+               $(this).autocomplete("instance").menu.active) {
+               event.preventDefault();
+           }
+       })
+       .autocomplete({
+						minLength: 1,
+						 source: function (request, response) {
+              response($.ui.autocomplete.filter(
+                availableTopics, extractLast(request.term)));
+          }
+					});
                 
-                $("#title").autocomplete({
-                    minLength: 1,
-            source: function( request, response ) {
-               
-		      		$.ajax({
-		      			url : 'api.php?p=Blog&a=autoComplete',
-		      			dataType: "json",
-						data: {
-						   type: 'userTopics'
-						},
-						 success: function( data ) {
-							response(  $.map( data, function( item ) {
-								return {
-									label: item.Name,
-									value: item.Name
-								}
-							}));
-						}
-		      		});
-		      	}
-                });
                 
                 $("#topicsneed").autocomplete({
                     minLength: 1,

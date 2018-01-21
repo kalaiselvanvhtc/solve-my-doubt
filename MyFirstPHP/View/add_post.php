@@ -41,19 +41,17 @@
     <div class="col-xs-12 col-sm-12 col-md-10">    
                <?php require 'InCompleteRegistrationForm.php' ?>
 		<form method="post" class="form-signin" action="">
-                    <h2 class="tagline">Ask Question</h2>
                     <?php require 'inc/msg.php' ?>
-			
-                       <div class="row">
-                           <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                        <input type="text" name="title" id="title" value="" class="form-control" placeholder="Topic"  required="required" />                           
-                       </div>
-                       </div>
-                    <div class="row">
+			<div class="row">
                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                         <textarea name="body" id="body" rows="5" cols="35" class="form-control" placeholder="Description" required="required"></textarea>
+                         <textarea name="body" id="body" rows="5" cols="35" class="form-control" placeholder="Enter your question" required="required"></textarea>
                        </div>
                       </div>
+                       <div class="row">
+                           <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                        <input type="text" name="title" id="title" value="" class="form-control" placeholder="Add relevant topics"  required="required" />                           
+                       </div>
+                       </div>
                         <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingL0 paddingR0">
                             <input class="btn btn-block bt-login btn-affermative" name="add_submit" id="add_submit" type="submit" value="Submit" />
                         </div>

@@ -646,3 +646,14 @@ a.content_answer,a.content_answer:focus, a.content_answer:hover,a.content_answer
 {
     margin-bottom: 50px;
 }
+.navbar-brand{
+    padding: 5px 15px !important;
+}
+.smdlogo
+{
+    width: 100px;
+margin-top: -29px;
+}
+.tag{
+    padding:25px 20px 20px 20px
+}

@@ -1,4 +1,4 @@
-
+<link rel='SHORTCUT ICON' href='<?=ROOT_URL?>images/web_hi_res_512.png' type='image/x-icon' />
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -7,7 +7,7 @@
  <span class="icon-bar"></span> 
  <span class="icon-bar"></span> 
  </button>
-      <a class="navbar-brand" style="font-weight: bold" href="#">Solve My Doubt
+      <a class="navbar-brand" style="font-weight: bold" href="<?=ROOT_URL?>?p=blog&a=all"><img class="smdlogo" src="<?=ROOT_URL?>images/smdlogo.png" />
       <p class="alwayslearning hidden">Spread the Knowledge!</p>
       </a>
       

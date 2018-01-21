@@ -3,7 +3,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12 paddingL0 paddingR0 borderbottom padding20">   
   
        <div class="row col-xs-12 col-sm-12 col-md-12">
-                                <a href="#" rel=" noopener noreferrer" class="blog-poster">
+                                <a href="#" rel=" noopener noreferrer" class="SocialLink blog-poster">
                                     <span><?=$oPost->AuthorName?></span>
                                 </a>
                                 
