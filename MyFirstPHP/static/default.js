@@ -28,6 +28,29 @@ var degreeValue='';
       $(this).hide();
   }); 
    $('#field').selectpicker();
+
+$('#accept_consult').click(function (e) {
+       
+  $.ajax({
+		      			url : 'api.php?p=Blog&a=acceptAnswer',
+		      			dataType: "json",
+						data: {
+						   id: getParameterByName('id')
+						},
+						 success: function( data ) {
+                                                     if(data.data.IsUserAcceptConsult=="1")
+                                                     {
+                                                    $('#accept_consult').removeClass("btn-affermative");
+                                                    $('#accept_consult').removeClass("btn-affermativeOne");
+                                                    $('#accept_consult').val("Request consultation");
+                                                     $("#Doubtermodal").modal();
+     
+                                                }
+						}
+		      		});
+  
+});
+
    $('#field').on('hidden.bs.select', function (e) {
        
   $.ajax({
