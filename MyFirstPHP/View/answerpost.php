@@ -15,7 +15,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SMD | Answer</title>
+		<title>Answer</title>
 		  
 		<!-- Bootstrap -->
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -59,7 +59,7 @@
      </div>
          
    
-      <?php if($this->oPost->IsConsultation>0 && ((int)$this->oPost->UserId===(int)$_SESSION['userId'] || (int)$this->oPost->DoubterUserId===(int)$_SESSION['userId'])): ?>                    
+      <?php if($this->oPost->IsConsultation>0): ?>                    
 	
             <div class="col-xs-12 col-sm-12 col-md-10 moduleContainer-normalView"> 
                 <div class="paddingL0 col-xs-12 col-sm-12 col-md-10">
@@ -71,9 +71,10 @@
 
                     
                     <div class="paddingL0 col-xs-12 col-sm-12 col-md-3">
-                        <?php if((int)$this->oPost->IsUserAcceptConsult==0 && (int)$this->oPost->DoubterUserId===(int)$_SESSION['userId']): ?>                    
+                        <?php if((int)$this->oPost->IsUserAcceptConsult==0 && (int)$this->oPost->UserId!==(int)$_SESSION['userId']): ?>                    
                      <input class="btn btn-block bt-login btn-affermative" name="accept_consult" id="accept_consult" type="button" value="Request consultation" />
                         <?php endif; ?>
+                     
                          <?php if((int)$this->oPost->IsUserAcceptConsult>0): ?>      
                      <?php if((int)$this->oPost->DoubterUserId===(int)$_SESSION['userId']): ?>      
                      <input class="btn btn-block bt-login btn-affermativeOne" name="accepted_consult" id="accepted_consult" type="button" value="Request consultation" />
@@ -82,7 +83,6 @@
                      <input class="btn btn-block bt-login btn-affermativeOne" name="solver_consult" id="solver_consult" type="button" value="Request consultation" />
                      <?php endif; ?>
                      <input class="btn btn-block bt-login btn-affermativeOne" style="display:none" name="disconnectSession" id="disconnectSession" type="button" value="End Session" />
-                     <input class="btn btn-block bt-login btn-affermativeOne" style="display:none"  name="startSession" id="startSession" type="button" value="Start Session" />
                      <div  id="videos">
         <div id="subscriberId"></div>
         <div id="publisherId"></div>

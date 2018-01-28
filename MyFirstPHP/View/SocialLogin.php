@@ -14,7 +14,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SMD | Log In or Sign Up</title>
+		<title>Log In or Sign Up</title>
 		    <meta name="google-signin-client_id" content="676124198523-iiq5kq7iicsvmk1etpu2ltqacqppv8v0.apps.googleusercontent.com">
 		<!-- Bootstrap -->
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -35,16 +35,11 @@
 <div id="background-carousel">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
+          
           <div id="bg-one" class="item active">
-              <img src="images/Globaloria_students_working.jpg" />
+              <img src="images/Q1cry1516950989.jpg" />
           </div>
-          <div id="bg-two" class="item">
-              <img src="images/play-184783_1920.jpg" />
-          </div>
-          <div id="bg-third" class="item">
-              <img src="images/education2.png" alt=""/>
-            
-          </div>  
+           
       </div>
     </div>
 </div>
@@ -61,8 +56,8 @@
 			<input name="email" id="email" type="number" class="form-control"placeholder="Phone number" autofocus> 
 			<input name="password" id="password" type="password" class="form-control disable" placeholder="Password">
 			<button class="btn btn-block bt-login btn-affermative" type="submit">Sign In</button>
-		
-                          <div class="fb-login-button" data-max-rows="1" data-width="440px" onlogin="checkLoginState();" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-scope="email,user_hometown,user_birthday,user_education_history,user_website,user_work_history" data-use-continue-as="true"></div>
+		<button class="btn btn-block bt-fb-login btn-affermative" onclick="cucheckLoginState();"  type="button">Continue with Facebook</button>
+                          <div class="fb-login-button hidden" data-max-rows="1" data-width="440px" onlogin="checkLoginState();" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-scope="email,user_hometown,user_birthday,user_education_history,user_website,user_work_history" data-use-continue-as="true"></div>
                         
             <input type="submit" name="social_authenticate" id="social_authenticate" value="Login" style="display: none" />
             <input type="hidden" name="social_user_info" id="social_user_info" />
@@ -135,6 +130,14 @@ function signOut() {
         $('#gSignIn').slideDown('slow');
     });
 }
+         function cucheckLoginState() {
+              FB.login(function(response) {
+
+            statusChangeCallback(response);
+
+}, {scope: 'email,user_hometown,user_birthday,user_education_history,user_website,user_work_history'}); 
+   
+  }
             function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);

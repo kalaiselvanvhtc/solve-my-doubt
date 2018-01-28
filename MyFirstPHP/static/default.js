@@ -22,35 +22,18 @@ var degreeValue='';
          $(".askquestion").removeClass("hidden");
          
      }
+     $("#edit_profile").click(function(){
+     $("#IncompleteRegForm").modal();
+        }); 
      
   $("#add_answer").click(function(){
       $("#postAnswerCont").show();
       $(this).hide();
   }); 
-   $('#field').selectpicker();
-
-$('#accept_consult').click(function (e) {
-       
-  $.ajax({
-		      			url : 'api.php?p=Blog&a=acceptAnswer',
-		      			dataType: "json",
-						data: {
-						   id: getParameterByName('id')
-						},
-						 success: function( data ) {
-                                                     if(data.data.IsUserAcceptConsult=="1")
-                                                     {
-                                                    $('#accept_consult').removeClass("btn-affermative");
-                                                    $('#accept_consult').removeClass("btn-affermativeOne");
-                                                    $('#accept_consult').val("Request consultation");
-                                                     $("#Doubtermodal").modal();
-     
-                                                }
-						}
-		      		});
   
-});
-
+  
+  
+   $('#field').selectpicker();
    $('#field').on('hidden.bs.select', function (e) {
        
   $.ajax({
@@ -157,7 +140,15 @@ var specId_array = new Array();
 						 source: function (request, response) {
               response($.ui.autocomplete.filter(
                 availableTopics, extractLast(request.term)));
-          }
+          },
+          select: function (event, ui) {
+               var terms = split(this.value);
+               terms.pop();
+               terms.push(ui.item.value);
+               terms.push("");
+               this.value = terms.join(", ");
+               return false;
+           }
 					});
                 
                 

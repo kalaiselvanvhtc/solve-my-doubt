@@ -12,7 +12,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SMD | Profile</title>
+		<title>Profile</title>
 		  
 		<!-- Bootstrap -->
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -32,7 +32,7 @@
 <body>
     
      <?php require 'inc/header.php' ?>
- 
+   <?php require 'InCompleteRegistrationForm.php' ?>
 	<div class="container">
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2">
@@ -100,7 +100,8 @@
 
 </form>
 </div>
-    
+     <a href="#" id="edit_profile" class="pull-right edit-blog-entry" rel=" noopener noreferrer">
+        <img src="<?=ROOT_URL?>/images/ic_edit.png"></a>
 </div>
         </div>
        <?php require 'inc/footer.php' ?>

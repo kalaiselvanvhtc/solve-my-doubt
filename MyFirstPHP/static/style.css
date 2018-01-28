@@ -657,3 +657,24 @@ margin-top: -29px;
 .tag{
     padding:25px 20px 20px 20px
 }
+.bt-fb-login
+{
+    background: url(../images/icon_facebook.png) #4267b2 no-repeat 6px 8px !important; 
+color: #fff;
+padding-bottom: 10px;
+padding-top: 10px;
+}
+.edit-blog-entry {
+    height: 70px;
+padding-top: 5px;
+padding-right: 15px;
+position: fixed;
+bottom: 75px;
+right: 25px;
+z-index: 2;
+width: 50px;
+}
+.edit-blog-entry img
+{
+    width: 70px;
+}

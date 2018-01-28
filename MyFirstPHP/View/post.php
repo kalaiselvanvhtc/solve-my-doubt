@@ -15,7 +15,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SMD | <?=htmlspecialchars($this->oPost->title)?></title>
+		<title><?=htmlspecialchars($this->oPost->title)?></title>
 		  
 		<!-- Bootstrap -->
 		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -51,23 +51,22 @@
     </div>
     <div class="blog-detail-container">
     <div class="title-container">  
- <h3 >  <?=nl2br(htmlspecialchars($this->oPost->body))?></h3>     
-<div class="blog-author">     <div class="blog-author-bio">         <div class="blog-author-all">     
- <div class="pull-left">                 <span class="blog-comments-author">                  
- By <a rel=" noopener noreferrer" href="#" class="SocialLink"><?=$this->oPost->AuthorName?></a>                 </span>     
- </div>             <div class="pull-right">                 <span><?=$this->oPost->createdDate?></span>       
- </div>         </div>         </div> </div>  </div>  
+ <p >  <?=nl2br(htmlspecialchars($this->oPost->body))?></p>     
+  </div>  
  <div class="detail-main-container">
    
      </div>
           <div class="pull-left tag"> <ul class="list-row-tags">
-            <li><a href="#"><?=htmlspecialchars($this->oPost->title)?></a></li>
             <?php foreach (explode(',', $this->oPost->Tag) as $tag): ?>
             <li><a href="#"><?=$tag?></a></li>
     <?php endforeach ?>
 </ul></div>
        
-   
+   <div class="detail-main-container blog-author">     <div class="blog-author-bio">         <div class="blog-author-all">     
+ <div class="pull-left">                 <span class="blog-comments-author">                  
+ By <a rel=" noopener noreferrer" href="#" class="SocialLink"><?=$this->oPost->AuthorName?></a>                 </span>     
+ </div>             <div class="pull-right">                 <span><?=$this->oPost->createdDate?></span>       
+ </div>         </div>         </div> </div>
 
 <?php endif ?>
  </div>
@@ -110,7 +109,13 @@
      <div class="form-group col-xs-12 col-sm-12 col-md-2 pull-left paddingR0 marginT20">
                             <input class="btn btn-block bt-login btn-affermative" name="add_answer" id="add_answer" type="button" value="Answer this question .." />
                         </div>
-</div></div>
+              <?php if((int)$this->oPost->createdbyuserid===(int)$_SESSION['userId']): ?>      
+            <a href="<?=ROOT_URL?>?p=blog&amp;a=edit&amp;id=<?=$this->oPost->id?>" class="pull-right edit-blog-entry" rel=" noopener noreferrer">
+        <img src="<?=ROOT_URL?>/images/ic_edit.png"></a>
+            <?php endif; ?>
+</div>
+
+</div>
         
  <?php require 'inc/footer.php' ?>
      

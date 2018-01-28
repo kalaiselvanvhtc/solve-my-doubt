@@ -47,7 +47,7 @@
                                             
 					</div>
                     <div class="form-group">
-                     <select name="year" id="year" tabindex="0"  title="Select Year" class="form-control">
+                     <select name="year" id="year" tabindex="0"  title="Select Year" class="hidden form-control">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -55,7 +55,7 @@
                             <option value="5">5</option>
 		</select></div> 
                     <div class="form-group">
-                     <select name="sem" id="sem" tabindex="0" title="Select Sem" class="form-control">
+                     <select name="sem" id="sem" tabindex="0" title="Select Sem" class="hidden form-control">
                             <option value="1">1</option>
                             <option value="2">2</option>
 		</select></div> 

@@ -111,7 +111,7 @@ class Blog
     }
     
     
-    public function add(array $aData, $currentUserId)
+    public function add(array $aData, $currentUserId,  $topics)
     {
         $oStmt = $this->oDb->prepare('INSERT INTO Posts (title, body, createdDate,createdbyuserid) VALUES(:title, :body, :created_date,:createdbyuserid)');
         $oStmt->execute($aData);
@@ -124,10 +124,20 @@ class Blog
         // pass value to the command
         $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
        $oStmt->bindParam(':currentPostId', $currentPostId, \PDO::PARAM_INT);
+       
         // execute the stored procedure
-      return  $oStmt->execute();
-      
+        $oStmt->execute();
         
+ $sql = 'CALL AddTopicsTag(:currentUserId,:currentPostId,:topics)';
+        // prepare for execution of the stored procedure
+        $oStmt = $this->oDb->prepare($sql);
+ 
+        // pass value to the command
+        $oStmt->bindParam(':currentUserId', $currentUserId, \PDO::PARAM_INT);
+       $oStmt->bindParam(':currentPostId', $currentPostId, \PDO::PARAM_INT);
+       $oStmt->bindParam(':topics', $topics, \PDO::PARAM_STR);
+      
+        return $oStmt->execute();
     }
     
     

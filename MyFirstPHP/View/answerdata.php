@@ -18,7 +18,7 @@
                 </div>
                       <div class="col-xs-2 col-sm-2 col-md-2 paddingR0">
 
-            <?php if($oPost->IsConsultation>0): ?>                    
+            <?php if($oPost->IsConsultation>0 && (int)$oPost->UserId!==(int)$_SESSION['userId']): ?>                    
                 <img class="consult_img" src="images/ic_consultation.png" />
 <?php endif; ?>
 </div>

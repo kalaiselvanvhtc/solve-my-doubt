@@ -114,6 +114,15 @@ class User {
                $_SESSION['getUserRegistrationComplete']=1;
                 
             }
+ else {
+     $oStmt = $this->oDb->prepare('UPDATE UserProfile SET PropertyValue=:PropertyValue,LastModifiedOnDate=:LastModifiedOnDate WHERE UserID=:UserID AND PropertyDefinitionID=:PropertyDefinitionID');
+               $oStmt->bindParam(':PropertyValue', $userData['PropertyValue'], \PDO::PARAM_STR);
+               $oStmt->bindParam(':LastModifiedOnDate', $userData['LastModifiedOnDate'], \PDO::PARAM_STR);
+               $oStmt->bindParam(':UserID', $userData['UserID'], \PDO::PARAM_INT);
+               $oStmt->bindParam(':PropertyDefinitionID', $userData['PropertyDefinitionID'], \PDO::PARAM_INT);
+               $oStmt->execute();
+               
+ }
              $oStmt = $this->oDb->prepare('SELECT userId,first_name,last_name,full_name,email,createdDate,modifiedDate,password,phone_Number,CAST(isRegistrationComplete AS unsigned integer) AS isRegistrationComplete FROM users WHERE email = :email OR phone_Number = :phone_Number');
         $oStmt->bindParam(':email', $_SESSION['email'], \PDO::PARAM_STR);
         $oStmt->bindParam(':phone_Number', $_SESSION['email'], \PDO::PARAM_STR);

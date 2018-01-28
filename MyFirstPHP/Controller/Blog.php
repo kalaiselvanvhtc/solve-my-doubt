@@ -206,11 +206,11 @@ $this->oUtil->getView('answerpost');
  
         if (!empty($_POST['add_submit']))
         {
-            if (isset($_POST['title'], $_POST['body']) && mb_strlen($_POST['title']) <= 50) // Allow a maximum of 50 characters
+            if (isset($_POST['title'], $_POST['body'])) // Allow a maximum of 50 characters
             {
-                $aData = array('title' => $_POST['title'], 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'),'createdbyuserid'=>(int)$_SESSION['userId']);
+                $aData = array('title' => mb_strimwidth( $_POST['title'], 0, 40, '...'), 'body' => $_POST['body'], 'created_date' => date('Y-m-d H:i:s'),'createdbyuserid'=>(int)$_SESSION['userId']);
 
-                if ($this->oModel->add($aData,(int)$_SESSION['userId']))
+                if ($this->oModel->add($aData,(int)$_SESSION['userId'], $_POST['title']))
                 {
                      header('Location: ' . ROOT_URL . '?p=blog&a=all');
                 }
@@ -219,7 +219,7 @@ $this->oUtil->getView('answerpost');
             }
             else
             {
-                $this->oUtil->sErrMsg = 'All fields are required and the title cannot exceed 50 characters.';
+                $this->oUtil->sErrMsg = 'Please enter Question and Topic';
             }
         }
 
